@@ -1,5 +1,6 @@
 package grafics;
 
+import javax.annotation.Resources;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -9,22 +10,26 @@ import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.BorderLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import main.ProgramResources;
 
+import javax.swing.event.MouseInputListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 class movableBackground extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private int posX, posY;
-	private int width, height;
+	private ProgramResources resource;
+	int posX, posY;
+	int width, height;
 	movableBackground(){
 		initialize();
 	}
 	movableBackground(ProgramResources resources){
+		this.resource=resources;
 		this.posX=0;
 		this.posY=0;
 		this.width=GraficSettings.WORKPLACE_WIDTH;
@@ -35,26 +40,10 @@ class movableBackground extends JPanel{
 	private void initialize() {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
-		addMouseMotionListener(new MouseAdapter(){
-			int lastMouseX = 0;
-			int lastMouseY = 0;
-	        public void mouseDragged(MouseEvent E)
-	        {
-	        	int tempX = E.getXOnScreen() - lastMouseX;
-	        	int tempY = E.getYOnScreen() - lastMouseY;
-	        	if(Math.abs(tempX)<50) posX+= tempX;
-	        	if(Math.abs(tempY)<50) posY+= tempY;
-	           	lastMouseX= E.getXOnScreen();
-	           	lastMouseY= E.getYOnScreen();
-	        	if(posX>0) posX=0;
-	        	if(posY>0) posY=0;
-	        	if(posX<(0-width-1500)) posX=0-width-1500;
-	        	if(posY<(0-height-1000)) posY=0-height-1000;
-	           	setLocation(posX,posY);
-	           	
-	        }
-	    });
+		addMouseListener(new MClickListener(this));
+		addMouseMotionListener(new MMotionListener(this));
 	}
+	
 }
 
 
@@ -149,5 +138,80 @@ public class CircuitWindow {
 		
 		
 		panel_1.add(new CircuitObjectTree(resources));	
+	}
+}
+class MClickListener implements MouseInputListener {
+
+	JPanel mJPanel;
+	
+	public MClickListener(movableBackground movableBackground) {
+		mJPanel = movableBackground;
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		mJPanel.add(new movableGate(e.getX(),e.getY()));
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+    	
+		
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
+class MMotionListener implements MouseMotionListener{
+	int lastMouseX = 0;
+	int lastMouseY = 0;
+
+	movableBackground mmovableBackground;
+	public MMotionListener(movableBackground movableBackground) {
+		mmovableBackground = movableBackground;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		int tempX = e.getXOnScreen() - lastMouseX;
+    	int tempY = e.getYOnScreen() - lastMouseY;
+    	if(Math.abs(tempX)<50) mmovableBackground.posX+= tempX;
+    	if(Math.abs(tempY)<50) mmovableBackground.posY+= tempY;
+       	lastMouseX= e.getXOnScreen();
+       	lastMouseY= e.getYOnScreen();
+    	if(mmovableBackground.posX>0) mmovableBackground.posX=0;
+    	if(mmovableBackground.posY>0) mmovableBackground.posY=0;
+    	if(mmovableBackground.posX<(0-mmovableBackground.width-1500)) mmovableBackground.posX=0-mmovableBackground.width-1500;
+    	if(mmovableBackground.posY<(0-mmovableBackground.height-1000)) mmovableBackground.posY=0-mmovableBackground.height-1000;
+    	mmovableBackground.setLocation(mmovableBackground.posX,mmovableBackground.posY);
+		//e.getX()+tempX,e.getY()+tempY
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
