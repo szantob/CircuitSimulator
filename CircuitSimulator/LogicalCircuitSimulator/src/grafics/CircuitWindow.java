@@ -5,11 +5,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonValue;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -85,7 +80,6 @@ class CircuitObjectTree extends JPanel{
 		add(scrollPane);	
 	}
 	private void initialize() {
-		JsonReader jsonReader = Json.createReader(new FileInputStream(JSON_FILE));
 	}
 }
 
