@@ -10,14 +10,17 @@ enum side{
 
 public class movableComponentPort extends JPanel {
 	private static final long serialVersionUID = 1L;
+	private movableComponent bela;
 	private JRadioButton button;
 	private side portSide;
 	private movableWire attachedWire;
-	public movableComponentPort(int posX, int posY, side portSide){
+	public movableComponentPort(int posX, int posY, side portSide, movableComponent bela){
+		this.bela=bela;
 		this.portSide=portSide;
 		setBounds(posX,posY,22,15);
 		setLayout(null);
 		button=new JRadioButton();
+		button.setEnabled(false);
 		button.setBounds(1, 1, 22, 15);
 		add(button);
 	}
@@ -44,5 +47,8 @@ public class movableComponentPort extends JPanel {
 	}
 	public movableWire getAttachedWire() {
 		return attachedWire;
+	}
+	public movableComponent getMovableComponent() {
+		return bela;
 	}
 }

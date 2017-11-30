@@ -20,21 +20,23 @@ public class movableWire extends JPanel{
 		movableWire wire = new movableWire(frame, portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
 		wire.aPort=portA;
 		wire.bPort=portB;
+		portA.attachWire(wire);
+		portB.attachWire(wire);
 		return  wire;
 	}
 	public movableWire(JFrame frame, int aPosX, int aPosY, int bPosX, int bPosY){
 		this.frame = frame;
-		this.aPosX=aPosX;
+		/*this.aPosX=aPosX;
 		this.aPosY=aPosY;
 		this.bPosX=bPosX;
-		this.bPosY=bPosY;
-		setBounds(aPosX, aPosY, bPosX-aPosX, bPosY-aPosY+2);
+		this.bPosY=bPosY;*/
+		setBounds(0, 0, GraficSettings.WORKPLACE_WIDTH, GraficSettings.WORKPLACE_HEIGHT);
 		setOpaque(false);
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;
-        Line2D lin = new Line2D.Float(0, 1, bPosX-aPosX, bPosY-aPosY+1);
+        Line2D lin = new Line2D.Float(aPosX, aPosY, bPosX, bPosY);
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(2f));
         g2.draw(lin);
@@ -49,7 +51,7 @@ public class movableWire extends JPanel{
 		}else {
 			////////////////////////////////////////////////////////// EXC
 		} 
-
+		
 		frame.repaint();
 		frame.revalidate();
 	}

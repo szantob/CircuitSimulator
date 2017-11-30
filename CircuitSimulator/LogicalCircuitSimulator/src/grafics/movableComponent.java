@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class movableComponent extends JPanel{
 	private static final long serialVersionUID = 1L;
 	int posX, posY, width, height;
+	movableComponent mmovableComponent;
 	movableComponent(){
     	initialize();
 	}
@@ -32,11 +33,14 @@ public class movableComponent extends JPanel{
 	        	if(posX>2*GraficSettings.WORKPLACE_WIDTH) posX=2*GraficSettings.WORKPLACE_WIDTH;
 	        	if(posY>2*GraficSettings.WORKPLACE_HEIGHT) posY=2*GraficSettings.WORKPLACE_HEIGHT;
 	        	setLocation(posX-width/2,posY-height/2);
-	        	updateConnections();
+	        	((movableGate)mmovableComponent).updateConnections();
             }
         });
 		setLayout(null);
 	}
 	private void updateConnections() {
+	}
+	public void setChild(movableGate movableGate) {
+		mmovableComponent = movableGate;
 	}
 }

@@ -14,6 +14,7 @@ class Window implements Runnable{
 		try {
 			CircuitWindow window = new CircuitWindow(resources);
 			window.frame.setVisible(true);
+			resources.setFrame(window.frame);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -28,7 +29,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater( new Window(resources));
-
 	}
 
 }

@@ -10,7 +10,7 @@ public class MouseStateMachine {
 		state=MouseState.GATE_SELECTED;
 	}
 	
-	public backgroundMouseEvent() {
+	public void backgroundMouseEvent() {
 		
 	}
 }

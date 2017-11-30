@@ -151,7 +151,9 @@ class MClickListener implements MouseInputListener {
 	public void mouseClicked(MouseEvent e) {
 		
 		mJPanel.add(new movableGate(e.getX(),e.getY()));
-		
+
+		mJPanel.revalidate();
+		mJPanel.repaint();
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
