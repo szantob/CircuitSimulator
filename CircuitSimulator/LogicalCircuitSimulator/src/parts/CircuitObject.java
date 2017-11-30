@@ -1,8 +1,6 @@
 package parts;
 
 import java.util.ArrayList;
-import java.util.Map;
-
 import controller.CircuitState;
 import controller.TokenContainer;
 

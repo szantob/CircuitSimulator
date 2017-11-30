@@ -12,6 +12,10 @@ import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import main.ProgramResources;
+
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
 class movableBackground extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -20,9 +24,9 @@ class movableBackground extends JPanel{
 	movableBackground(){
 		initialize();
 	}
-	movableBackground(int posX, int posY){
-		this.posX=posX;
-		this.posY=posY;
+	movableBackground(ProgramResources resources){
+		this.posX=0;
+		this.posY=0;
 		this.width=GraficSettings.WORKPLACE_WIDTH;
 		this.height=GraficSettings.WORKPLACE_HEIGHT;
 		setBounds(posX-width, posX-height, 2*width, 2*height);
@@ -53,14 +57,21 @@ class movableBackground extends JPanel{
 	}
 }
 
+
 class CircuitObjectTree extends JPanel{
 	public static final String JSON_FILE="circuitParts.txt";
 	private static final long serialVersionUID = 1L;
-	CircuitObjectSpawnPoint spawn;
-	CircuitObjectTree(){
+	private ProgramResources resources;
+	private JTree tree;
+	
+	CircuitObjectTree(ProgramResources resources){
+		this.resources=resources;
+		initialize();
+	}
+	private void initialize() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Circuit Parts");
-			DefaultMutableTreeNode wires = new DefaultMutableTreeNode("Wires");
-			wires.add(new DefaultMutableTreeNode("Simple Wire"));
+		DefaultMutableTreeNode wires = new DefaultMutableTreeNode("Wires");
+		wires.add(new DefaultMutableTreeNode("Simple Wire"));
 		root.add(wires);
 			DefaultMutableTreeNode gates = new DefaultMutableTreeNode("Logical Gates");
 			gates.add(new DefaultMutableTreeNode("NOT"));
@@ -75,18 +86,23 @@ class CircuitObjectTree extends JPanel{
 				ngates.add(new DefaultMutableTreeNode("XNOR"));
 			gates.add(ngates);
 		root.add(gates);
-		JTree tree = new JTree(root);
+		tree = new JTree(root);
 		JScrollPane scrollPane = new JScrollPane(tree);
-		add(scrollPane);	
-	}
-	private void initialize() {
+		add(scrollPane);
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+	        public void valueChanged(TreeSelectionEvent evt) {
+	        	String node = evt.getNewLeadSelectionPath().getLastPathComponent().toString();
+	            resources.mouseSM.objectTreeMouseEvent(node);
+	        }
+		});
 	}
 }
 
 public class CircuitWindow {
-
+	private ProgramResources resources;
 	public JFrame frame;
-	public CircuitWindow() {
+	public CircuitWindow(ProgramResources resource) {
+		this.resources=resource;
 		initialize();
 	}
 
@@ -114,7 +130,7 @@ public class CircuitWindow {
 		workfield.setBackground(Color.BLACK);
 		
 		
-		JPanel background = new movableBackground(0,0);
+		JPanel background = new movableBackground(resources);
 		background.setBounds(0,0,GraficSettings.WORKPLACE_WIDTH,GraficSettings.WORKPLACE_HEIGHT);
 		workfield.add(background);
 
@@ -123,19 +139,15 @@ public class CircuitWindow {
 		movableGate gate2 = new movableGate(240,80);
 		background.add(gate2);
 		
-		CircuitObjectSpawnPoint spawn = new CircuitObjectSpawnPoint();
-		background.add(spawn);
 
 		movableWire wire = movableWire.attachMovableWireToPorts(frame, gate1.out, gate2.inB);
 		background.add(wire);
-		
-		gate2.posX+=40;
-		wire.refresh(gate2.inB);		
+				
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.WEST);
 		
 		
-		panel_1.add(new CircuitObjectTree());	
+		panel_1.add(new CircuitObjectTree(resources));	
 	}
 }
