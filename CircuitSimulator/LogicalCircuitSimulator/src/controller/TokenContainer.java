@@ -2,13 +2,17 @@ package controller;
 
 import java.util.ArrayList;
 
+import graphics.MovableObject;
 import parts.CircuitObject;
 
 class Token extends Thread {
 	TokenContainer container;
 	CircuitObject imSittingHere;
-	int tokenTTL;
-	int speedReducer;
+	MovableObject youCanSeeMeHere;
+	
+	private int tokenTTL;
+	private int speedReducer;
+	
 	public Token(CircuitObject nextObject, int timeToLive) {
 		if(timeToLive==0);			//////////////////  Cyclic circuit!!!!!!
 		tokenTTL=timeToLive;
@@ -19,6 +23,7 @@ class Token extends Thread {
 			sleep(imSittingHere.getSleepTime()*speedReducer);
 		} catch (InterruptedException e) {}
 		if(imSittingHere.Update()==true) {
+			youCanSeeMeHere.setColorByState(imSittingHere.getState());
 			imSittingHere.addTokensToOutputs(container, tokenTTL-1);
 			container.remove(this);
 			return;

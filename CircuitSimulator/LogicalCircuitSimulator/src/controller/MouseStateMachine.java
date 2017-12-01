@@ -2,6 +2,7 @@ package controller;
 
 import graphics.MovableComponentPort;
 import graphics.MovableWire;
+import parts.CircuitObject;
 
 enum MouseState{
 	DEFAULT,
@@ -49,12 +50,15 @@ public class MouseStateMachine {
 		switch(state) {
 		case PORT_SELECTED:
 			if(port.equals(selectedPort)) return;
-			MovableWire.attachMovableWireToPorts(port, selectedPort);
+			PartArray.addNewPart(MovableWire.attachMovableWireToPorts(port, selectedPort), CircuitObject.addCircuitObject(null));
+			state = MouseState.DEFAULT;
+			selectedPort = null;
 			break;
 		default:
 			state = MouseState.PORT_SELECTED;
+			selectedPort = port;
 			break;
-		
+		// TODO foglalkozni az osszes esettel
 		}
 	}
 }

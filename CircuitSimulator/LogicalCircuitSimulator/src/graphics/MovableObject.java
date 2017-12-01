@@ -13,8 +13,8 @@ public class MovableObject extends JPanel implements StateChangingColor {
 	public CircuitObject getConnectedObject() {
 		return connectedObject;
 	}
-	public void connectObject(CircuitObject connectedObject) {
-		this.connectedObject = connectedObject;
+	public void connectObject(CircuitObject object) {
+		this.connectedObject = object;
 	}
 
 }

@@ -16,6 +16,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import controller.CircuitStateEnum;
 import controller.MouseStateMachine;
+import controller.PartArray;
+import parts.CircuitObject;
+
 import javax.swing.event.MouseInputListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -82,7 +85,7 @@ class CircuitObjectTree extends JPanel{
 
 public class CircuitWindow {
 	public static JFrame frame;
-	static JPanel workplace;
+	public static JPanel workplace;
 	
 	public CircuitWindow() {
 		initialize();
@@ -152,40 +155,23 @@ class MClickListener implements MouseInputListener {
 	public void mouseClicked(MouseEvent e) {
 		String label = MouseStateMachine.backgroundMouseEvent();
 		if(label==null) return;
-		mJPanel.add(new MovableGate(e.getX(),e.getY(), label));
+		PartArray.addNewPart(new MovableGate(e.getX(),e.getY(), label), CircuitObject.addCircuitObject(null));
 
 		mJPanel.revalidate();
 		mJPanel.repaint();
 	}
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mouseDragged(MouseEvent e) {
-    	
-		
-	}
+	public void mouseDragged(MouseEvent e) {}
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(MouseEvent e) {}
 }
 
 class MMotionListener implements MouseMotionListener{

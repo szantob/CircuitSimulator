@@ -125,6 +125,10 @@ public class CircuitObject {
 		return connectedObject;
 	}
 	public void connectObject(MovableObject Object) {
-		this.connectedObject = connectedObject;
+		this.connectedObject = Object;
+	}
+	public static CircuitObject addCircuitObject(String name) {
+		
+		return new CircuitObject(0, 0, 0); // TODO
 	}
 }
