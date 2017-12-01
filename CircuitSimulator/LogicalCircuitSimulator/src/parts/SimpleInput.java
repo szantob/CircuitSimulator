@@ -1,12 +1,12 @@
 package parts;
 
-import controller.CircuitState;
+import controller.CircuitStateEnum;
 
 public class SimpleInput extends CircuitObject{
 
 	public SimpleInput() {
 		super(0, 1, 0);
-		state=CircuitState.UNSTABLE;
+		state=CircuitStateEnum.UNSTABLE;
 	}
 	public synchronized boolean Update(){
 		if(portList.get(0).getState()!=state) {
@@ -16,18 +16,18 @@ public class SimpleInput extends CircuitObject{
 			return false;
 		}
 	}
-	public void setState(CircuitState state) {
+	public void setState(CircuitStateEnum state) {
 		this.state=state;
 	}
 	public void setState(String stateChar) {
 		switch(stateChar) {
-		case "H": state=CircuitState.HIGH;
+		case "H": state=CircuitStateEnum.HIGH;
 		break;
-		case "L": state=CircuitState.LOW;
+		case "L": state=CircuitStateEnum.LOW;
 		break;
-		case "U": state=CircuitState.UNSTABLE;
+		case "U": state=CircuitStateEnum.UNSTABLE;
 		break;
-		default: state=CircuitState.UNSTABLE;
+		default: state=CircuitStateEnum.UNSTABLE;
 		}
 	}
 	public CircuitObjectPort getPort() {

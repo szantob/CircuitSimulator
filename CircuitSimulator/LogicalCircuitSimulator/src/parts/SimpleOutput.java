@@ -1,12 +1,12 @@
 package parts;
 
-import controller.CircuitState;
+import controller.CircuitStateEnum;
 
 public class SimpleOutput extends CircuitObject{
 
 	public SimpleOutput() {
 		super(1, 0, 0);
-		state=CircuitState.UNSTABLE;
+		state=CircuitStateEnum.UNSTABLE;
 	}
 	public synchronized boolean Update(){
 		if(portList.get(0).getState()!=state) {

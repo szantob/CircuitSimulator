@@ -7,7 +7,7 @@ import parts.CircuitObject;
 import parts.SimpleInput;
 import parts.SimpleOutput;
 
-public class PartArray implements Serializable{
+public class LogicalPartArray implements Serializable{
 	private static final long serialVersionUID = 1L;
 	static ArrayList<SimpleInput> inputList;
 	static ArrayList<CircuitObject> circuitMidPartList;
@@ -15,7 +15,7 @@ public class PartArray implements Serializable{
 	static TokenContainer tokenContainer;
 	static int defaultTTL = 256;
 	
-	public PartArray(){
+	public LogicalPartArray(){
 		inputList = new ArrayList<SimpleInput>();
 		circuitMidPartList = new ArrayList<CircuitObject>();
 		outputList = new ArrayList<SimpleOutput>();
@@ -39,7 +39,7 @@ public class PartArray implements Serializable{
 		}
 	}
 	
-	public static void setSimpleInput(SimpleInput input, CircuitState state) {
+	public static void setSimpleInput(SimpleInput input, CircuitStateEnum state) {
 		input.setState(state);
 		tokenContainer.addToken(input,defaultTTL);
 	}

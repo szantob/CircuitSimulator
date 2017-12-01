@@ -1,6 +1,6 @@
 package controller;
 
-public enum CircuitState {
+public enum CircuitStateEnum {
 	HIGH,
 	LOW,
 	UNSTABLE,

@@ -1,6 +1,6 @@
 package parts;
 
-import controller.CircuitState;
+import controller.CircuitStateEnum;
 
 public class NotGate extends CircuitObject {
 	public NotGate() {
@@ -9,24 +9,24 @@ public class NotGate extends CircuitObject {
 	public synchronized boolean Update() {
 		switch(portList.get(0).getState()) {
 		case UNSTABLE:
-			if(state==CircuitState.UNSTABLE) {
+			if(state==CircuitStateEnum.UNSTABLE) {
 				return false;
 			}else {
-				state=CircuitState.UNSTABLE;
+				state=CircuitStateEnum.UNSTABLE;
 				return true;
 			}
 		case HIGH:
-			if(state==CircuitState.LOW) {
+			if(state==CircuitStateEnum.LOW) {
 				return false;
 			}else {
-				state=CircuitState.LOW;
+				state=CircuitStateEnum.LOW;
 				return true;
 			}
 		case LOW:
-			if(state==CircuitState.HIGH) {
+			if(state==CircuitStateEnum.HIGH) {
 				return false;
 			}else {
-				state=CircuitState.HIGH;
+				state=CircuitStateEnum.HIGH;
 				return true;
 			}
 		default:

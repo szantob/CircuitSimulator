@@ -1,7 +1,7 @@
 package parts;
 
 import java.util.ArrayList;
-import controller.CircuitState;
+import controller.CircuitStateEnum;
 import controller.TokenContainer;
 
 
@@ -17,14 +17,14 @@ class CircuitObjectPort{
 	protected CircuitObjectPort connectedPort;
 	private CircuitObject connectedObject;
 	private CircuitObject homeObject;
-	private CircuitState state;
+	private CircuitStateEnum state;
 	private boolean isChanged; 
 	
 	public CircuitObjectPort(CircuitObjectPortDirection direction, CircuitObject homeObject) {
 		this.direction=direction;
 		this.homeObject=homeObject;
 		this.isChanged=false;
-		this.state=CircuitState.UNSTABLE;
+		this.state=CircuitStateEnum.UNSTABLE;
 	}
 	public boolean Connect(CircuitObjectPort toPort) {
 		if((direction == toPort.direction)&&direction!=CircuitObjectPortDirection.INOUT) return false;
@@ -32,7 +32,7 @@ class CircuitObjectPort{
 		connectedObject = toPort.GetHomeObject();
 		return false;
 	}
-	boolean setState(CircuitObject whoSetted, CircuitState state) {
+	boolean setState(CircuitObject whoSetted, CircuitStateEnum state) {
 		if((whoSetted == homeObject)&&(direction == CircuitObjectPortDirection.INPUT)||
 			(whoSetted == connectedObject)&&(direction == CircuitObjectPortDirection.OUTPUT)) return false; /////////////
 		if(this.state == state) return false;
@@ -54,7 +54,7 @@ class CircuitObjectPort{
 	public CircuitObject GetConnectedObject() {
 		return connectedObject;
 	}
-	public CircuitState getState() {
+	public CircuitStateEnum getState() {
 		return state;
 	}
 	public boolean isChanged() {
@@ -66,14 +66,14 @@ class CircuitObjectPort{
 public class CircuitObject {
 	protected ArrayList<CircuitObjectPort> portList;
 	int I,O,IO;
-	protected CircuitState state;
+	protected CircuitStateEnum state;
 	private int sleepTime;
 	
 	public CircuitObject(int inputPortNumber, int outputPortNumber, int inoutPortNumber) {
 		I=inputPortNumber;
 		O=outputPortNumber;
 		IO=inoutPortNumber;
-		state = CircuitState.UNSTABLE;
+		state = CircuitStateEnum.UNSTABLE;
 		sleepTime = 100;
 		portList = new ArrayList<CircuitObjectPort>();
 		for(int i=0; i<inputPortNumber;i++) {
@@ -98,7 +98,7 @@ public class CircuitObject {
 	public synchronized boolean Update() {
 		return false;
 	}
-	public CircuitState getState() {
+	public CircuitStateEnum getState() {
 		return state;
 	}
 	public CircuitObjectPort getPort(int port) {

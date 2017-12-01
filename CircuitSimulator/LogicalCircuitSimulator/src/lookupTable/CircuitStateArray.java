@@ -2,9 +2,9 @@ package lookupTable;
 
 import java.util.ArrayList;
 
-import controller.CircuitState;
+import controller.CircuitStateEnum;
 
-public class CircuitStateArray extends ArrayList<CircuitState>{
+public class CircuitStateArray extends ArrayList<CircuitStateEnum>{
 	private static final long serialVersionUID = 1L;
 	private final int size;
 
@@ -14,16 +14,16 @@ public class CircuitStateArray extends ArrayList<CircuitState>{
 		for(int i=0;i<size;i++) {
 			switch(str.charAt(i)) {
 				case 'U':
-					add(CircuitState.UNSTABLE);
+					add(CircuitStateEnum.UNSTABLE);
 				break;
 				case 'H':
-					add(CircuitState.HIGH);
+					add(CircuitStateEnum.HIGH);
 				break;
 				case 'L':
-					add(CircuitState.LOW);
+					add(CircuitStateEnum.LOW);
 				break;
 				case 'X':
-					add(CircuitState.XDONTCARE);
+					add(CircuitStateEnum.XDONTCARE);
 				break;
 				default:
 					throw new RuntimeException("Invalid input");
@@ -58,11 +58,11 @@ public class CircuitStateArray extends ArrayList<CircuitState>{
 		for(int i=0;i<size;i++) {
 			switch(get(i)) {
 			case HIGH:
-				if(!array.get(i).equals(CircuitState.HIGH)&&!array.get(i).equals(CircuitState.XDONTCARE)) return false;
+				if(!array.get(i).equals(CircuitStateEnum.HIGH)&&!array.get(i).equals(CircuitStateEnum.XDONTCARE)) return false;
 			case LOW:
-				if(!array.get(i).equals(CircuitState.LOW)&&!array.get(i).equals(CircuitState.XDONTCARE)) return false;
+				if(!array.get(i).equals(CircuitStateEnum.LOW)&&!array.get(i).equals(CircuitStateEnum.XDONTCARE)) return false;
 			case UNSTABLE:
-				if(!array.get(i).equals(CircuitState.UNSTABLE)/*&&array.get(i)!=CircuitState.XDONTCARE*/) return false;
+				if(!array.get(i).equals(CircuitStateEnum.UNSTABLE)/*&&array.get(i)!=CircuitStateEnum.XDONTCARE*/) return false;
 			case XDONTCARE:
 				break;
 			default:

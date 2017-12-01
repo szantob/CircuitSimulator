@@ -2,13 +2,13 @@ package main;
 
 import org.junit.Before;
 
-import controller.PartArray;
+import controller.LogicalPartArray;
 
 public class TokenTest {
-	PartArray parts;
+	LogicalPartArray parts;
 	
 	@Before
 	void initialize(){
-		parts = new PartArray();
+		parts = new LogicalPartArray();
 	}
 }
