@@ -13,21 +13,21 @@ public class CircuitStateArray extends ArrayList<CircuitState>{
 		size=str.length();
 		for(int i=0;i<size;i++) {
 			switch(str.charAt(i)) {
-			case 'U':
-				add(CircuitState.UNSTABLE);
-			break;
-			case 'H':
-				add(CircuitState.HIGH);
-			break;
-			case 'L':
-				add(CircuitState.LOW);
-			break;
-			case 'X':
-				add(CircuitState.XDONTCARE);
-			break;
-			default:
-				throw new RuntimeException("Invalid input");
-			}
+				case 'U':
+					add(CircuitState.UNSTABLE);
+				break;
+				case 'H':
+					add(CircuitState.HIGH);
+				break;
+				case 'L':
+					add(CircuitState.LOW);
+				break;
+				case 'X':
+					add(CircuitState.XDONTCARE);
+				break;
+				default:
+					throw new RuntimeException("Invalid input");
+				}
 		}
 	}
 	public String toString(){
@@ -58,11 +58,11 @@ public class CircuitStateArray extends ArrayList<CircuitState>{
 		for(int i=0;i<size;i++) {
 			switch(get(i)) {
 			case HIGH:
-				if(array.get(i)!=CircuitState.HIGH&&array.get(i)!=CircuitState.XDONTCARE) return false;
+				if(!array.get(i).equals(CircuitState.HIGH)&&!array.get(i).equals(CircuitState.XDONTCARE)) return false;
 			case LOW:
-				if(array.get(i)!=CircuitState.LOW&&array.get(i)!=CircuitState.XDONTCARE) return false;
+				if(!array.get(i).equals(CircuitState.LOW)&&!array.get(i).equals(CircuitState.XDONTCARE)) return false;
 			case UNSTABLE:
-				if(array.get(i)!=CircuitState.UNSTABLE/*&&array.get(i)!=CircuitState.XDONTCARE*/) return false;
+				if(!array.get(i).equals(CircuitState.UNSTABLE)/*&&array.get(i)!=CircuitState.XDONTCARE*/) return false;
 			case XDONTCARE:
 				break;
 			default:

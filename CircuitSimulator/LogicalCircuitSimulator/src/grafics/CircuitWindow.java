@@ -1,6 +1,5 @@
 package grafics;
 
-import javax.annotation.Resources;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -8,28 +7,24 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.BorderLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import main.ProgramResources;
 
+import controller.MouseStateMachine;
 import javax.swing.event.MouseInputListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 class movableBackground extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private ProgramResources resource;
 	int posX, posY;
 	int width, height;
+	
 	movableBackground(){
-		initialize();
-	}
-	movableBackground(ProgramResources resources){
-		this.resource=resources;
 		this.posX=0;
 		this.posY=0;
 		this.width=GraficSettings.WORKPLACE_WIDTH;
@@ -43,55 +38,52 @@ class movableBackground extends JPanel{
 		addMouseListener(new MClickListener(this));
 		addMouseMotionListener(new MMotionListener(this));
 	}
-	
 }
 
 
 class CircuitObjectTree extends JPanel{
 	public static final String JSON_FILE="circuitParts.txt";
 	private static final long serialVersionUID = 1L;
-	private ProgramResources resources;
 	private JTree tree;
 	
-	CircuitObjectTree(ProgramResources resources){
-		this.resources=resources;
+	CircuitObjectTree(){
 		initialize();
 	}
 	private void initialize() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Circuit Parts");
-		DefaultMutableTreeNode wires = new DefaultMutableTreeNode("Wires");
-		wires.add(new DefaultMutableTreeNode("Simple Wire"));
-		root.add(wires);
-			DefaultMutableTreeNode gates = new DefaultMutableTreeNode("Logical Gates");
-			gates.add(new DefaultMutableTreeNode("NOT"));
-				DefaultMutableTreeNode gates2 = new DefaultMutableTreeNode("Logical Gates");
-				gates2.add(new DefaultMutableTreeNode("AND"));
-				gates2.add(new DefaultMutableTreeNode("OR"));
-				gates2.add(new DefaultMutableTreeNode("XOR"));
-			gates.add(gates2);
-				DefaultMutableTreeNode ngates = new DefaultMutableTreeNode("Negated Logical Gates");
-				ngates.add(new DefaultMutableTreeNode("NAND"));
-				ngates.add(new DefaultMutableTreeNode("NOR"));
-				ngates.add(new DefaultMutableTreeNode("XNOR"));
-			gates.add(ngates);
-		root.add(gates);
+		DefaultMutableTreeNode io = new DefaultMutableTreeNode("IO");
+		io.add(new DefaultMutableTreeNode("IN"));
+		io.add(new DefaultMutableTreeNode("OUT"));
+		root.add(io);
+		DefaultMutableTreeNode gates2 = new DefaultMutableTreeNode("Logical Gates");
+			gates2.add(new DefaultMutableTreeNode("NOT"));
+			gates2.add(new DefaultMutableTreeNode("AND"));
+			gates2.add(new DefaultMutableTreeNode("OR"));
+			gates2.add(new DefaultMutableTreeNode("XOR"));
+		root.add(gates2);
+		DefaultMutableTreeNode ngates = new DefaultMutableTreeNode("Negated Logical Gates");
+			ngates.add(new DefaultMutableTreeNode("NAND"));
+			ngates.add(new DefaultMutableTreeNode("NOR"));
+			ngates.add(new DefaultMutableTreeNode("XNOR"));
+		root.add(ngates);
 		tree = new JTree(root);
 		JScrollPane scrollPane = new JScrollPane(tree);
 		add(scrollPane);
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 	        public void valueChanged(TreeSelectionEvent evt) {
-	        	String node = evt.getNewLeadSelectionPath().getLastPathComponent().toString();
-	            resources.mouseSM.objectTreeMouseEvent(node);
+	        	DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) evt.getNewLeadSelectionPath().getLastPathComponent();
+	            MouseStateMachine.objectTreeMouseEvent(treeNode.toString());
+	            tree.setExpandsSelectedPaths(false);
 	        }
 		});
 	}
 }
 
 public class CircuitWindow {
-	private ProgramResources resources;
-	public JFrame frame;
-	public CircuitWindow(ProgramResources resource) {
-		this.resources=resource;
+	public static JFrame frame;
+	static JPanel background;
+	
+	public CircuitWindow() {
 		initialize();
 	}
 
@@ -113,23 +105,23 @@ public class CircuitWindow {
 		menuBar.add(mnEdit);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel workfield = new JPanel();
-		frame.getContentPane().add(workfield, BorderLayout.CENTER);
-		workfield.setLayout(null);
-		workfield.setBackground(Color.BLACK);
+		JPanel asasasasd = new JPanel();
+		frame.getContentPane().add(asasasasd, BorderLayout.CENTER);
+		asasasasd.setLayout(null);
+		asasasasd.setBackground(Color.BLACK);
 		
 		
-		JPanel background = new movableBackground(resources);
+		background = new movableBackground();
 		background.setBounds(0,0,GraficSettings.WORKPLACE_WIDTH,GraficSettings.WORKPLACE_HEIGHT);
-		workfield.add(background);
+		asasasasd.add(background);
 
-		movableGate gate1 = new movableGate(80,80);
+		movableGate gate1 = new movableGate(80,80,"AND");
 		background.add(gate1);
-		movableGate gate2 = new movableGate(240,80);
+		movableGate gate2 = new movableGate(240,80,"OR");
 		background.add(gate2);
 		
 
-		movableWire wire = movableWire.attachMovableWireToPorts(frame, gate1.out, gate2.inB);
+		movableWire wire = movableWire.attachMovableWireToPorts(gate1.out, gate2.inB);
 		background.add(wire);
 				
 		
@@ -137,7 +129,7 @@ public class CircuitWindow {
 		frame.getContentPane().add(panel_1, BorderLayout.WEST);
 		
 		
-		panel_1.add(new CircuitObjectTree(resources));	
+		panel_1.add(new CircuitObjectTree());	
 	}
 }
 class MClickListener implements MouseInputListener {
@@ -149,8 +141,9 @@ class MClickListener implements MouseInputListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
-		mJPanel.add(new movableGate(e.getX(),e.getY()));
+		String label = MouseStateMachine.backgroundMouseEvent();
+		if(label==null) return;
+		mJPanel.add(new movableGate(e.getX(),e.getY(), label));
 
 		mJPanel.revalidate();
 		mJPanel.repaint();

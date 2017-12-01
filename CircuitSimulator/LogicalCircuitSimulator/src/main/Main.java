@@ -2,19 +2,16 @@ package main;
 
 import java.awt.EventQueue;
 
+import controller.MouseStateMachine;
+import controller.PartArray;
 import grafics.CircuitWindow;
 
-class Window implements Runnable{
-	private ProgramResources resources;
-	public Window(ProgramResources resource) {
-		this.resources=resource;
-	}
+class WindowThread implements Runnable{
+
 	@Override
 	public void run() {
 		try {
-			CircuitWindow window = new CircuitWindow(resources);
-			window.frame.setVisible(true);
-			resources.setFrame(window.frame);
+			CircuitWindow.frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -22,13 +19,13 @@ class Window implements Runnable{
 	
 }
 
-
-
 public class Main {
-	public static ProgramResources resources;
+	public static CircuitWindow window = new CircuitWindow();
+	public static MouseStateMachine mouseSM = new MouseStateMachine();
+	public static PartArray partArray = new PartArray();
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater( new Window(resources));
+		EventQueue.invokeLater( new WindowThread());
 	}
 
 }

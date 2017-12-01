@@ -1,7 +1,12 @@
 package grafics;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import controller.MouseStateMachine;
 
 enum side{
 	LEFT,
@@ -20,8 +25,9 @@ public class movableComponentPort extends JPanel {
 		setBounds(posX,posY,22,15);
 		setLayout(null);
 		button=new JRadioButton();
-		button.setEnabled(false);
+		//button.setEnabled(false);
 		button.setBounds(1, 1, 22, 15);
+		button.addActionListener(new myActionListener(this));
 		add(button);
 	}
 	public int getConnectionX() {
@@ -51,4 +57,18 @@ public class movableComponentPort extends JPanel {
 	public movableComponent getMovableComponent() {
 		return bela;
 	}
+}
+
+class myActionListener implements ActionListener{
+	movableComponentPort port;
+	myActionListener(movableComponentPort port){
+		this.port=port;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JRadioButton button = (JRadioButton)e.getSource();
+		button.isSelected();
+		MouseStateMachine.objectPortEvent(port);
+	}
+	
 }

@@ -6,30 +6,29 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class movableWire extends JPanel{
 	private static final long serialVersionUID = 1L;
+	
 	int aPosX, aPosY, bPosX, bPosY;
 	private movableComponentPort aPort, bPort;
 	private Graphics2D g2;
-	private JFrame frame;
 	
-	public static movableWire attachMovableWireToPorts(JFrame frame, movableComponentPort portA, movableComponentPort portB){
-		movableWire wire = new movableWire(frame, portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
+	public static movableWire attachMovableWireToPorts(movableComponentPort portA, movableComponentPort portB){
+		movableWire wire = new movableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
 		wire.aPort=portA;
 		wire.bPort=portB;
 		portA.attachWire(wire);
 		portB.attachWire(wire);
 		return  wire;
 	}
-	public movableWire(JFrame frame, int aPosX, int aPosY, int bPosX, int bPosY){
-		this.frame = frame;
-		/*this.aPosX=aPosX;
+	
+	public movableWire(int aPosX, int aPosY, int bPosX, int bPosY){
+		this.aPosX=aPosX;
 		this.aPosY=aPosY;
 		this.bPosX=bPosX;
-		this.bPosY=bPosY;*/
+		this.bPosY=bPosY;
 		setBounds(0, 0, GraficSettings.WORKPLACE_WIDTH, GraficSettings.WORKPLACE_HEIGHT);
 		setOpaque(false);
 	}
@@ -52,7 +51,7 @@ public class movableWire extends JPanel{
 			////////////////////////////////////////////////////////// EXC
 		} 
 		
-		frame.repaint();
-		frame.revalidate();
+		CircuitWindow.frame.repaint();
+		CircuitWindow.frame.revalidate();
 	}
 }
