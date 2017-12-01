@@ -3,6 +3,7 @@ package parts;
 import java.util.ArrayList;
 import controller.CircuitStateEnum;
 import controller.TokenContainer;
+import graphics.MovableObject;
 
 
 
@@ -69,6 +70,8 @@ public class CircuitObject {
 	protected CircuitStateEnum state;
 	private int sleepTime;
 	
+	private MovableObject connectedObject;
+	
 	public CircuitObject(int inputPortNumber, int outputPortNumber, int inoutPortNumber) {
 		I=inputPortNumber;
 		O=outputPortNumber;
@@ -117,5 +120,11 @@ public class CircuitObject {
 		case UNSTABLE: return "U";
 		default: return "U";
 		}
+	}
+	public MovableObject getConnectedObject() {
+		return connectedObject;
+	}
+	public void connectObject(MovableObject Object) {
+		this.connectedObject = connectedObject;
 	}
 }

@@ -4,14 +4,11 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-
 import controller.CircuitStateEnum;
 
-public class MovableComponent extends JPanel implements StateChangingColor{
+public class MovableComponent extends MovableObject{
 	private static final long serialVersionUID = 1L;
 	private int posX, posY, width, height;
-	private Color color;
 	
 	MovableComponent mmovableComponent;
 	MovableComponent(){

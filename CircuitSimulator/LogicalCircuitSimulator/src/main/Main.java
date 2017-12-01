@@ -2,11 +2,10 @@ package main;
 
 import java.awt.EventQueue;
 
-import controller.GraphicalPartArray;
 import controller.MouseStateMachine;
+import controller.PartArray;
 import controller.TokenContainer;
 import graphics.CircuitWindow;
-import controller.LogicalPartArray;
 
 class WindowThread implements Runnable{
 
@@ -24,8 +23,7 @@ class WindowThread implements Runnable{
 public class Main {
 	public static CircuitWindow window = new CircuitWindow();
 	public static MouseStateMachine mouseSM = new MouseStateMachine();
-	public static GraphicalPartArray graphicParts = new GraphicalPartArray();
-	public static LogicalPartArray partArray = new LogicalPartArray();
+	public static PartArray partArray = new PartArray();
 	public static TokenContainer tokenContainer = new TokenContainer();
 
 	public static void main(String[] args) {

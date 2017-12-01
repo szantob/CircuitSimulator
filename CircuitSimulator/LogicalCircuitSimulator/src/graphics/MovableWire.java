@@ -6,17 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
-import javax.swing.JPanel;
-
 import controller.CircuitStateEnum;
 
-public class MovableWire extends JPanel implements StateChangingColor{
+public class MovableWire extends MovableObject{
 	private static final long serialVersionUID = 1L;
 	
 	int aPosX, aPosY, bPosX, bPosY;
 	private MovableComponentPort aPort, bPort;
 	private Graphics2D g2;
-	private Color color = Color.BLACK;
 	
 	public static MovableWire attachMovableWireToPorts(MovableComponentPort portA, MovableComponentPort portB){
 		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
