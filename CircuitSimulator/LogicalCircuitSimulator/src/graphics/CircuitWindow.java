@@ -1,4 +1,4 @@
-package grafics;
+package graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;

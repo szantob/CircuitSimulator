@@ -1,4 +1,4 @@
-package grafics;
+package graphics;
 
 public class GraficSettings {
 	static int WORKPLACE_WIDTH = 4000;

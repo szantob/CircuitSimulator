@@ -1,4 +1,4 @@
-package grafics;
+package graphics;
 
 import javax.swing.JLabel;
 

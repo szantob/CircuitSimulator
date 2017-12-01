@@ -1,7 +1,7 @@
 package controller;
 
-import grafics.MovableComponentPort;
-import grafics.MovableWire;
+import graphics.MovableComponentPort;
+import graphics.MovableWire;
 
 enum MouseState{
 	DEFAULT,

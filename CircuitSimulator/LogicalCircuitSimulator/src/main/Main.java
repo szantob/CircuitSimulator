@@ -5,8 +5,8 @@ import java.awt.EventQueue;
 import controller.GraphicalPartArray;
 import controller.MouseStateMachine;
 import controller.TokenContainer;
+import graphics.CircuitWindow;
 import controller.LogicalPartArray;
-import grafics.CircuitWindow;
 
 class WindowThread implements Runnable{
 
