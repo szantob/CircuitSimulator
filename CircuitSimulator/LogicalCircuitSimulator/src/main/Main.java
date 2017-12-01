@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import controller.GraphicalPartArray;
 import controller.MouseStateMachine;
+import controller.TokenContainer;
 import controller.LogicalPartArray;
 import grafics.CircuitWindow;
 
@@ -25,6 +26,7 @@ public class Main {
 	public static MouseStateMachine mouseSM = new MouseStateMachine();
 	public static GraphicalPartArray graphicParts = new GraphicalPartArray();
 	public static LogicalPartArray partArray = new LogicalPartArray();
+	public static TokenContainer tokenContainer = new TokenContainer();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater( new WindowThread());

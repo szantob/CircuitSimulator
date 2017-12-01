@@ -38,6 +38,7 @@ public class movableComponent extends JPanel{
         });
 		setLayout(null);
 	}
+	@SuppressWarnings("unused")
 	private void updateConnections() {
 	}
 	public void setChild(movableGate movableGate) {
