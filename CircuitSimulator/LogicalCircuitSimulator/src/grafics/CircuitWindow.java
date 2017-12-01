@@ -14,6 +14,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import controller.CircuitStateEnum;
 import controller.MouseStateMachine;
 import javax.swing.event.MouseInputListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -81,7 +82,7 @@ class CircuitObjectTree extends JPanel{
 
 public class CircuitWindow {
 	public static JFrame frame;
-	static JPanel background;
+	static JPanel workplace;
 	
 	public CircuitWindow() {
 		initialize();
@@ -105,24 +106,18 @@ public class CircuitWindow {
 		menuBar.add(mnEdit);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel asasasasd = new JPanel();
-		frame.getContentPane().add(asasasasd, BorderLayout.CENTER);
-		asasasasd.setLayout(null);
-		asasasasd.setBackground(Color.BLACK);
+		JPanel background = new JPanel();
+		frame.getContentPane().add(background, BorderLayout.CENTER);
+		background.setLayout(null);
+		background.setBackground(Color.BLACK);
 		
 		
-		background = new movableBackground();
-		background.setBounds(0,0,GraficSettings.WORKPLACE_WIDTH,GraficSettings.WORKPLACE_HEIGHT);
-		asasasasd.add(background);
+		workplace = new movableBackground();
+		workplace.setBounds(0,0,GraficSettings.WORKPLACE_WIDTH,GraficSettings.WORKPLACE_HEIGHT);
+		background.add(workplace);
 
-		movableGate gate1 = new movableGate(80,80,"AND");
-		background.add(gate1);
-		movableGate gate2 = new movableGate(240,80,"OR");
-		background.add(gate2);
 		
-
-		movableWire wire = movableWire.attachMovableWireToPorts(gate1.out, gate2.inB);
-		background.add(wire);
+		testInit();
 				
 		
 		JPanel panel_1 = new JPanel();
@@ -130,6 +125,20 @@ public class CircuitWindow {
 		
 		
 		panel_1.add(new CircuitObjectTree());	
+	}
+	private void testInit() {
+		MovableGate gate1 = new MovableGate(80,80,"AND");
+		workplace.add(gate1);
+		MovableGate gate2 = new MovableGate(240,80,"OR");
+		workplace.add(gate2);
+		
+
+		MovableWire wire = MovableWire.attachMovableWireToPorts(gate1.out, gate2.inB);
+		workplace.add(wire);
+		
+		gate1.setColorByState(CircuitStateEnum.LOW);
+		wire.setColorByState(CircuitStateEnum.LOW);
+		
 	}
 }
 class MClickListener implements MouseInputListener {
@@ -143,7 +152,7 @@ class MClickListener implements MouseInputListener {
 	public void mouseClicked(MouseEvent e) {
 		String label = MouseStateMachine.backgroundMouseEvent();
 		if(label==null) return;
-		mJPanel.add(new movableGate(e.getX(),e.getY(), label));
+		mJPanel.add(new MovableGate(e.getX(),e.getY(), label));
 
 		mJPanel.revalidate();
 		mJPanel.repaint();

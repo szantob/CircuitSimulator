@@ -6,14 +6,18 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-public class movableComponent extends JPanel{
+import controller.CircuitStateEnum;
+
+public class MovableComponent extends JPanel implements StateChangingColor{
 	private static final long serialVersionUID = 1L;
-	int posX, posY, width, height;
-	movableComponent mmovableComponent;
-	movableComponent(){
+	private int posX, posY, width, height;
+	private Color color;
+	
+	MovableComponent mmovableComponent;
+	MovableComponent(){
     	initialize();
 	}
-	movableComponent(int posX, int posY, int width, int height){
+	MovableComponent(int posX, int posY, int width, int height){
     	this.posX=posX;
     	this.posY=posY;
     	this.width=width;
@@ -33,7 +37,7 @@ public class movableComponent extends JPanel{
 	        	if(posX>2*GraficSettings.WORKPLACE_WIDTH) posX=2*GraficSettings.WORKPLACE_WIDTH;
 	        	if(posY>2*GraficSettings.WORKPLACE_HEIGHT) posY=2*GraficSettings.WORKPLACE_HEIGHT;
 	        	setLocation(posX-width/2,posY-height/2);
-	        	((movableGate)mmovableComponent).updateConnections();
+	        	((MovableGate)mmovableComponent).updateConnections();
             }
         });
 		setLayout(null);
@@ -41,7 +45,24 @@ public class movableComponent extends JPanel{
 	@SuppressWarnings("unused")
 	private void updateConnections() {
 	}
-	public void setChild(movableGate movableGate) {
+	public void setChild(MovableGate movableGate) {
 		mmovableComponent = movableGate;
+	}
+	public void setColorByState(CircuitStateEnum state) {
+		switch(state) {
+		case HIGH:
+			color = Color.RED;
+			break;
+		case LOW:
+			color = Color.BLUE;
+			break;
+		case UNSTABLE:
+			color = Color.YELLOW;
+			break;
+		default:
+			color = Color.YELLOW;
+			break;
+		}
+		setBackground(color);
 	}
 }

@@ -1,7 +1,7 @@
 package controller;
 
-import grafics.movableComponentPort;
-import grafics.movableWire;
+import grafics.MovableComponentPort;
+import grafics.MovableWire;
 
 enum MouseState{
 	DEFAULT,
@@ -11,7 +11,7 @@ enum MouseState{
 
 public class MouseStateMachine {
 	private static String selectedGate;
-	private static movableComponentPort selectedPort;
+	private static MovableComponentPort selectedPort;
 	
 	private static MouseState state = MouseState.DEFAULT;
 	
@@ -45,11 +45,11 @@ public class MouseStateMachine {
 		return tmp;
 	}
 	
-	public static void objectPortEvent(movableComponentPort port) {
+	public static void objectPortEvent(MovableComponentPort port) {
 		switch(state) {
 		case PORT_SELECTED:
 			if(port.equals(selectedPort)) return;
-			movableWire.attachMovableWireToPorts(port, selectedPort);
+			MovableWire.attachMovableWireToPorts(port, selectedPort);
 			break;
 		default:
 			state = MouseState.PORT_SELECTED;

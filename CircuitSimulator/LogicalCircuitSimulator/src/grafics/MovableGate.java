@@ -4,16 +4,16 @@ import javax.swing.JLabel;
 
 import parts.LogicalGate;
 
-public class movableGate extends movableComponent {
+public class MovableGate extends MovableComponent {
 	private static final long serialVersionUID = 1L;
-	movableComponentPort inA, inB, out;
+	MovableComponentPort inA, inB, out;
 	
 	LogicalGate simObject;
-	movableGate(){
+	MovableGate(){
 		super(10,10,50,40);
 		initialize();
 	}
-	movableGate(int posX, int posY, String lableStr){
+	MovableGate(int posX, int posY, String lableStr){
 		super(posX,posY,70,50);
 		super.setChild(this);
 		initialize();
@@ -22,11 +22,11 @@ public class movableGate extends movableComponent {
 		add(label);
 	}
 	void initialize() {
-		inA=new movableComponentPort(1, 1, side.LEFT,this);
+		inA=new MovableComponentPort(1, 1, side.LEFT,this);
 		add(inA);
-		inB=new movableComponentPort(1, 34, side.LEFT,this);
+		inB=new MovableComponentPort(1, 34, side.LEFT,this);
 		add(inB);
-		out=new movableComponentPort(48, 18, side.RIGHT,this);
+		out=new MovableComponentPort(48, 18, side.RIGHT,this);
 		add(out);
 	}
 	

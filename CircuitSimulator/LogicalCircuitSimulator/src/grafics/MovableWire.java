@@ -8,15 +8,18 @@ import java.awt.geom.Line2D;
 
 import javax.swing.JPanel;
 
-public class movableWire extends JPanel{
+import controller.CircuitStateEnum;
+
+public class MovableWire extends JPanel implements StateChangingColor{
 	private static final long serialVersionUID = 1L;
 	
 	int aPosX, aPosY, bPosX, bPosY;
-	private movableComponentPort aPort, bPort;
+	private MovableComponentPort aPort, bPort;
 	private Graphics2D g2;
+	private Color color = Color.BLACK;
 	
-	public static movableWire attachMovableWireToPorts(movableComponentPort portA, movableComponentPort portB){
-		movableWire wire = new movableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
+	public static MovableWire attachMovableWireToPorts(MovableComponentPort portA, MovableComponentPort portB){
+		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
 		wire.aPort=portA;
 		wire.bPort=portB;
 		portA.attachWire(wire);
@@ -24,7 +27,7 @@ public class movableWire extends JPanel{
 		return  wire;
 	}
 	
-	public movableWire(int aPosX, int aPosY, int bPosX, int bPosY){
+	public MovableWire(int aPosX, int aPosY, int bPosX, int bPosY){
 		this.aPosX=aPosX;
 		this.aPosY=aPosY;
 		this.bPosX=bPosX;
@@ -36,11 +39,11 @@ public class movableWire extends JPanel{
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;
         Line2D lin = new Line2D.Float(aPosX, aPosY, bPosX, bPosY);
-		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke(2f));
+		g2.setColor(color);
+		g2.setStroke(new BasicStroke(3f));
         g2.draw(lin);
 	}
-	public void refresh(movableComponentPort port) {
+	public void refresh(MovableComponentPort port) {
 		if(port == aPort) {
 			aPosX=port.getConnectionX();
 			aPosY=port.getConnectionY();
@@ -50,6 +53,25 @@ public class movableWire extends JPanel{
 		}else {
 			////////////////////////////////////////////////////////// EXC
 		} 
+		
+		CircuitWindow.frame.repaint();
+		CircuitWindow.frame.revalidate();
+	}
+	public void setColorByState(CircuitStateEnum state) {
+		switch(state) {
+		case HIGH:
+			color = Color.RED;
+			break;
+		case LOW:
+			color = Color.BLUE;
+			break;
+		case UNSTABLE:
+			color = Color.YELLOW;
+			break;
+		default:
+			color = Color.YELLOW;
+			break;
+		}
 		
 		CircuitWindow.frame.repaint();
 		CircuitWindow.frame.revalidate();

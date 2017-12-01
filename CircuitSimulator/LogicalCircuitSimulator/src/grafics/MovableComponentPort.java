@@ -13,13 +13,13 @@ enum side{
 	RIGHT;
 }
 
-public class movableComponentPort extends JPanel {
+public class MovableComponentPort extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private movableComponent bela;
+	private MovableComponent bela;
 	private JRadioButton button;
 	private side portSide;
-	private movableWire attachedWire;
-	public movableComponentPort(int posX, int posY, side portSide, movableComponent bela){
+	private MovableWire attachedWire;
+	public MovableComponentPort(int posX, int posY, side portSide, MovableComponent bela){
 		this.bela=bela;
 		this.portSide=portSide;
 		setBounds(posX,posY,22,15);
@@ -40,7 +40,7 @@ public class movableComponentPort extends JPanel {
 	public int getConnectionY() {
 		return 6+getY()+getParent().getY();
 	}
-	public void attachWire(movableWire wire){
+	public void attachWire(MovableWire wire){
 		if(wire == null) {
 			
 		}else {
@@ -51,17 +51,17 @@ public class movableComponentPort extends JPanel {
 	public void updatePos() {
 		////////////////////
 	}
-	public movableWire getAttachedWire() {
+	public MovableWire getAttachedWire() {
 		return attachedWire;
 	}
-	public movableComponent getMovableComponent() {
+	public MovableComponent getMovableComponent() {
 		return bela;
 	}
 }
 
 class myActionListener implements ActionListener{
-	movableComponentPort port;
-	myActionListener(movableComponentPort port){
+	MovableComponentPort port;
+	myActionListener(MovableComponentPort port){
 		this.port=port;
 	}
 	@Override
