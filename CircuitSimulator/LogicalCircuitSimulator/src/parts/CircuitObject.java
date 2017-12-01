@@ -128,7 +128,19 @@ public class CircuitObject {
 		this.connectedObject = Object;
 	}
 	public static CircuitObject addCircuitObject(String name) {
-		
-		return new CircuitObject(0, 0, 0); // TODO
+		switch(name) {
+		case "IN":
+			return new SimpleInput();
+		case "OUT":
+			return new SimpleOutput();
+		case "AND":
+			return new AndGate();
+		case "OR":
+			return new OrGate();
+		case "XOR":
+			return new XorGate();
+		default:
+			return new CircuitObject(0, 0, 0); // TODO
+		}
 	}
 }
