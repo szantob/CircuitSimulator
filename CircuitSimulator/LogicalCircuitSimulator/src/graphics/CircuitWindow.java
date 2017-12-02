@@ -6,6 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import java.awt.event.MouseEvent;
@@ -92,12 +93,20 @@ class MClickListener implements MouseInputListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		String label = MouseStateMachine.backgroundMouseEvent();
-		if(label==null) return;
-		PartArray.addNewPart(new MovableGate(e.getX(),e.getY(), label), CircuitObject.addCircuitObject(label));
-
-		mJPanel.revalidate();
-		mJPanel.repaint();
+		if(SwingUtilities.isLeftMouseButton(e)) {
+			String label = MouseStateMachine.backgroundLeftMouseEvent();
+			if(label==null) return;
+			switch(label) {
+			case "IN":
+				PartArray.addNewPart(new MovableInput(e.getX(),e.getY(), label), CircuitObject.addCircuitObject(label));
+				break;
+			default:
+				PartArray.addNewPart(new MovableGate(e.getX(),e.getY(), label), CircuitObject.addCircuitObject(label));
+				break;
+			}
+		}else if(SwingUtilities.isRightMouseButton(e)) {
+			MouseStateMachine.backgroundRightMouseEvent();
+		}
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {}

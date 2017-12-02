@@ -13,4 +13,10 @@ public class SimpleWire extends CircuitObject {
 			return true;
 		}
 	}
+	public static SimpleWire attachSimpleWireToPorts(CircuitObjectPort portA, CircuitObjectPort portB) {
+		SimpleWire wire = new SimpleWire();
+		CircuitObject.Connect(portA, wire.getPort(0));
+		CircuitObject.Connect(portB, wire.getPort(1));
+		return wire;
+	}
 }

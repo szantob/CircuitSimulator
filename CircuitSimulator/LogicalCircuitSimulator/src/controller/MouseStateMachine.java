@@ -3,6 +3,8 @@ package controller;
 import graphics.MovableComponentPort;
 import graphics.MovableWire;
 import parts.CircuitObject;
+import parts.CircuitObjectPort;
+import parts.SimpleWire;
 
 enum MouseState{
 	DEFAULT,
@@ -30,6 +32,8 @@ public class MouseStateMachine {
 		case "NOT":
 			return;
 		case "IN":
+			state=MouseState.GATE_SELECTED;
+			selectedGate = node;
 			return;
 		case "OUT":
 			return;
@@ -38,19 +42,27 @@ public class MouseStateMachine {
 		}
 	}
 	
-	public static String backgroundMouseEvent() {
+	public static String backgroundLeftMouseEvent() {
 		if(state!=MouseState.GATE_SELECTED) return null;
 		String tmp = selectedGate;
 		state=MouseState.DEFAULT;
 		selectedGate = null;
 		return tmp;
 	}
+	public static void backgroundRightMouseEvent() {
+		state = MouseState.DEFAULT;
+		selectedGate = null;
+		selectedPort = null;
+	}
 	
 	public static void objectPortEvent(MovableComponentPort port) {
 		switch(state) {
 		case PORT_SELECTED:
 			if(port.equals(selectedPort)) return;
-			PartArray.addNewPart(MovableWire.attachMovableWireToPorts(port, selectedPort), CircuitObject.addCircuitObject(null));
+			CircuitObjectPort logicalPort = null; //TODO
+			CircuitObjectPort selectedLogicalPort = null; //TODO
+			PartArray.addNewPart(	MovableWire.attachMovableWireToPorts(port, selectedPort),
+									SimpleWire.attachSimpleWireToPorts(logicalPort,selectedLogicalPort));
 			state = MouseState.DEFAULT;
 			selectedPort = null;
 			break;
