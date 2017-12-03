@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import graphicalParts.MovableComponent;
+import graphics.CircuitWindow;
 import logicalParts.LogicalObject;
 import main.Main;
 
@@ -30,11 +31,22 @@ public class PartArray implements Serializable{
 		//graphical.connectObject(logical);
 		//logical.connectObject(graphical);
 	}
-	public String saveAs(String path) {
+	
+	static boolean resetWorspace(){
+		CircuitWindow.workplace.removeAll();
+		for(MovableComponent i : graphicalPartList) {
+			CircuitWindow.workplace.add(i);
+		}
+		CircuitWindow.frame.repaint();
+		CircuitWindow.frame.revalidate();
+		return true;
+	}
+	
+	public static String saveAs(String path) {
 		ObjectOutputStream out;
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(path));
-			out.writeObject(this);
+			out = new ObjectOutputStream(new FileOutputStream(path +".circ"));
+			out.writeObject(Main.partArray);
 			out.close();
 			lastSavePath = path;
 			return "true";
@@ -42,7 +54,7 @@ public class PartArray implements Serializable{
 			return e.getMessage();
 		}
 	}
-	public String save() {
+	public static String save() {
 		return saveAs(lastSavePath);
 	}
 	public static String loadAs(String path) {
@@ -51,6 +63,7 @@ public class PartArray implements Serializable{
 			in = new ObjectInputStream(new FileInputStream(path));
 			Main.partArray = (PartArray) in.readObject();
 			in.close();
+			resetWorspace();
 			return "true";
 		} catch (IOException | ClassNotFoundException e) {
 			return e.getMessage();

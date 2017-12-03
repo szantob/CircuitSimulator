@@ -18,6 +18,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import controller.MouseStateMachine;
+import javax.swing.JMenuItem;
 
 
 public class CircuitWindow {
@@ -33,14 +34,10 @@ public class CircuitWindow {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JMenuBar menuBar = new JMenuBar();
+		JMenuBar menuBar = new ProgramMenu();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
 		
-		JMenu mnEdit = new JMenu("Edit");
-		menuBar.add(mnEdit);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		
