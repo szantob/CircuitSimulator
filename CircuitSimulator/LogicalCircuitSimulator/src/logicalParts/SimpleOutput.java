@@ -3,7 +3,8 @@ package logicalParts;
 import controller.CircuitStateEnum;
 
 public class SimpleOutput extends LogicalObject{
-
+	private static final long serialVersionUID = 1L;
+	
 	public SimpleOutput() {
 		super(1, 0, 0);
 		state=CircuitStateEnum.UNSTABLE;

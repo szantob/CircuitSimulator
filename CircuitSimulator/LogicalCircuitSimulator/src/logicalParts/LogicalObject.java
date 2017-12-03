@@ -1,20 +1,22 @@
 package logicalParts;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import controller.CircuitStateEnum;
 import controller.TokenContainer;
-import graphicalParts.MovableComponent;
+import graphicalParts.GraphicalObject;
 import parts.AndGate;
 import parts.OrGate;
 import parts.XorGate;
 
-public abstract class LogicalObject {
+public abstract class LogicalObject implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected ArrayList<LogicalObjectPort> portList;
 	int I,O,IO;
 	protected CircuitStateEnum state;
 	private int sleepTime;
 	
-	private MovableComponent connectedObject;
+	private GraphicalObject connectedObject;
 	
 	public LogicalObject(int inputPortNumber, int outputPortNumber, int inoutPortNumber) {
 		I=inputPortNumber;
@@ -65,10 +67,10 @@ public abstract class LogicalObject {
 		default: return "U";
 		}
 	}
-	public MovableComponent getConnectedObject() {
+	public GraphicalObject getConnectedObject() {
 		return connectedObject;
 	}
-	public void connectObject(MovableComponent Object) {
+	public void connectObject(GraphicalObject Object) {
 		this.connectedObject = Object;
 	}
 	public static LogicalObject addCircuitObject(String name) {

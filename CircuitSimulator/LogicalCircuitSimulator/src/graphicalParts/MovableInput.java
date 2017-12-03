@@ -5,9 +5,9 @@ import javax.swing.JLabel;
 import logicalParts.LogicalObject;
 import logicalParts.SimpleInput;
 
-public class MovableInput extends MovableComponent {
+public class MovableInput extends GraphicalObject {
 	private static final long serialVersionUID = 1L;
-	MovableComponentPort out;
+	GraphicalObjectPort out;
 	
 	private SimpleInput simObject;
 	public MovableInput(int posX, int posY, String lableStr){
@@ -19,7 +19,7 @@ public class MovableInput extends MovableComponent {
 		add(label);
 	}
 	void initialize() {
-		out=new MovableComponentPort(27, 8, side.RIGHT,this);
+		out=new GraphicalObjectPort(27, 8, side.RIGHT,this);
 		add(out);
 	}
 	

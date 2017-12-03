@@ -4,9 +4,9 @@ import javax.swing.JLabel;
 
 import parts.LogicalGate;
 
-public class MovableGate extends MovableComponent {
+public class MovableGate extends GraphicalObject {
 	private static final long serialVersionUID = 1L;
-	MovableComponentPort inA, inB, out;
+	GraphicalObjectPort inA, inB, out;
 	
 	LogicalGate simObject;
 	public MovableGate(int posX, int posY, String lableStr){
@@ -18,11 +18,11 @@ public class MovableGate extends MovableComponent {
 		add(label);
 	}
 	void initialize() {
-		inA=new MovableComponentPort(1, 1, side.LEFT,this);
+		inA=new GraphicalObjectPort(1, 1, side.LEFT,this);
 		add(inA);
-		inB=new MovableComponentPort(1, 34, side.LEFT,this);
+		inB=new GraphicalObjectPort(1, 34, side.LEFT,this);
 		add(inB);
-		out=new MovableComponentPort(48, 18, side.RIGHT,this);
+		out=new GraphicalObjectPort(48, 18, side.RIGHT,this);
 		add(out);
 	}
 	

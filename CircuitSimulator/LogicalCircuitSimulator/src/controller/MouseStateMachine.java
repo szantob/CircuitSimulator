@@ -1,7 +1,7 @@
 package controller;
 
-import graphicalParts.MovableComponent;
-import graphicalParts.MovableComponentPort;
+import graphicalParts.GraphicalObject;
+import graphicalParts.GraphicalObjectPort;
 import graphicalParts.MovableWire;
 import logicalParts.LogicalObject;
 import logicalParts.LogicalObjectPort;
@@ -15,7 +15,7 @@ enum MouseState{
 
 public class MouseStateMachine {
 	private static String selectedGate;
-	private static MovableComponentPort selectedPort;
+	private static GraphicalObjectPort selectedPort;
 	
 	private static MouseState state = MouseState.DEFAULT;
 	
@@ -26,7 +26,7 @@ public class MouseStateMachine {
 	
 	public static boolean backgroundLeftMouseEvent(int posX, int posY) {
 		if(state!=MouseState.GATE_SELECTED) return false;
-		PartArray.addNewPart(MovableComponent.addGraphicalObject(posX, posY, selectedGate), LogicalObject.addCircuitObject(selectedGate));
+		PartArray.addNewPart(GraphicalObject.addGraphicalObject(posX, posY, selectedGate), LogicalObject.addCircuitObject(selectedGate));
 		state=MouseState.DEFAULT;
 		selectedGate = null;
 		return true;
@@ -37,7 +37,7 @@ public class MouseStateMachine {
 		selectedPort = null;
 	}
 	
-	public static void objectPortEvent(MovableComponentPort port) {
+	public static void objectPortEvent(GraphicalObjectPort port) {
 		switch(state) {
 		case PORT_SELECTED:
 			if(port.equals(selectedPort)) return;

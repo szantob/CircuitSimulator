@@ -2,15 +2,15 @@ package controller;
 
 import java.util.ArrayList;
 
-import graphicalParts.MovableComponentPort;
-import graphicalParts.MovableComponent;
+import graphicalParts.GraphicalObjectPort;
+import graphicalParts.GraphicalObject;
 import logicalParts.LogicalObject;
 import logicalParts.LogicalObjectPort;
 
 public class GraphicalLogicalObject {
 	LogicalObject logicalObject;
-	MovableComponent graphicalObject;
+	GraphicalObject graphicalObject;
 
 	ArrayList<LogicalObjectPort> logicalObjectPortList;
-	ArrayList<MovableComponentPort> graphicalObjectPortList;
+	ArrayList<GraphicalObjectPort> graphicalObjectPortList;
 }

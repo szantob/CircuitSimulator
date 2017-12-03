@@ -1,5 +1,5 @@
 package graphicalParts;
-
+// TODO Moving bug
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,14 +10,14 @@ import controller.CircuitStateEnum;
 import graphics.CircuitWindow;
 import graphics.GraficSettings;
 
-public class MovableWire extends MovableComponent{
+public class MovableWire extends GraphicalObject{
 	private static final long serialVersionUID = 1L;
 	
 	int aPosX, aPosY, bPosX, bPosY;
-	private MovableComponentPort aPort, bPort;
+	private GraphicalObjectPort aPort, bPort;
 	private Graphics2D g2;
 	
-	public static MovableWire attachMovableWireToPorts(MovableComponentPort portA, MovableComponentPort portB){
+	public static MovableWire attachMovableWireToPorts(GraphicalObjectPort portA, GraphicalObjectPort portB){
 		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
 		wire.aPort=portA;
 		wire.bPort=portB;
@@ -45,7 +45,7 @@ public class MovableWire extends MovableComponent{
 		g2.setStroke(new BasicStroke(3f));
         g2.draw(lin);
 	}
-	public void refresh(MovableComponentPort port) {
+	public void refresh(GraphicalObjectPort port) {
 		if(port == aPort) {
 			aPosX=port.getConnectionX();
 			aPosY=port.getConnectionY();

@@ -8,24 +8,24 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import graphicalParts.MovableComponent;
+import graphicalParts.GraphicalObject;
 import graphics.CircuitWindow;
 import logicalParts.LogicalObject;
 import main.Main;
 
 public class PartArray implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private static ArrayList<MovableComponent> graphicalPartList = new ArrayList<MovableComponent>();
+	private static ArrayList<GraphicalObject> graphicalPartList = new ArrayList<GraphicalObject>();
 	private static ArrayList<LogicalObject> locicalPartList = new ArrayList<LogicalObject>();
 	private static String lastSavePath = "/saves/test";
 
-	void addPart(MovableComponent graphical, LogicalObject logical){
+	void addPart(GraphicalObject graphical, LogicalObject logical){
 		graphicalPartList.add(graphical);
 		//TODO
 		//locicalPartList.add(logical);
 	}
 	
-	public static void addNewPart(MovableComponent graphical, LogicalObject logical) {
+	public static void addNewPart(GraphicalObject graphical, LogicalObject logical) {
 		Main.partArray.addPart(graphical, logical);
 		//TODO
 		//graphical.connectObject(logical);
@@ -34,7 +34,7 @@ public class PartArray implements Serializable{
 	
 	static boolean resetWorspace(){
 		CircuitWindow.workplace.removeAll();
-		for(MovableComponent i : graphicalPartList) {
+		for(GraphicalObject i : graphicalPartList) {
 			CircuitWindow.workplace.add(i);
 		}
 		CircuitWindow.frame.repaint();
@@ -46,7 +46,9 @@ public class PartArray implements Serializable{
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(path +".circ"));
-			out.writeObject(Main.partArray);
+			for(GraphicalObject i : graphicalPartList) {
+				out.writeObject(i);
+			}
 			out.close();
 			lastSavePath = path;
 			return "true";
@@ -61,6 +63,8 @@ public class PartArray implements Serializable{
 		ObjectInputStream in;
 		try {
 			in = new ObjectInputStream(new FileInputStream(path));
+			Main.partArray = new PartArray();
+			//TODO
 			Main.partArray = (PartArray) in.readObject();
 			in.close();
 			resetWorspace();

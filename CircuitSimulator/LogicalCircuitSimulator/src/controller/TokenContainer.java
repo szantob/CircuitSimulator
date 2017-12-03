@@ -2,13 +2,13 @@ package controller;
 
 import java.util.ArrayList;
 
-import graphicalParts.MovableComponent;
+import graphicalParts.GraphicalObject;
 import logicalParts.LogicalObject;
 
 class Token extends Thread {
 	TokenContainer container;
 	LogicalObject imSittingHere;
-	MovableComponent youCanSeeMeHere;
+	GraphicalObject youCanSeeMeHere;
 	
 	private int tokenTTL;
 	private int speedReducer;

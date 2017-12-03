@@ -3,6 +3,7 @@ package graphicalParts;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 
@@ -12,7 +13,7 @@ import graphics.GraficSettings;
 import graphics.StateChangingColor;
 import logicalParts.LogicalObject;
 
-public abstract class MovableComponent extends JPanel implements StateChangingColor {
+public abstract class GraphicalObject extends JPanel implements StateChangingColor, Serializable {
 	private static final long serialVersionUID = 1L;
 	private int posX, posY, width, height;
 	
@@ -27,11 +28,11 @@ public abstract class MovableComponent extends JPanel implements StateChangingCo
 	}
 
 	
-	MovableComponent mmovableComponent;
-	MovableComponent(){
+	GraphicalObject mmovableComponent;
+	GraphicalObject(){
     	initialize();
 	}
-	MovableComponent(int posX, int posY, int width, int height){
+	GraphicalObject(int posX, int posY, int width, int height){
     	this.posX=posX;
     	this.posY=posY;
     	this.width=width;
@@ -79,8 +80,8 @@ public abstract class MovableComponent extends JPanel implements StateChangingCo
 		}
 		setBackground(color);
 	}
-	public static MovableComponent addGraphicalObject(int posX, int posY, String label) {
-		MovableComponent tmp;
+	public static GraphicalObject addGraphicalObject(int posX, int posY, String label) {
+		GraphicalObject tmp;
 		switch(label) {
 		case "IN":
 			tmp = new MovableInput(posX, posY, label);

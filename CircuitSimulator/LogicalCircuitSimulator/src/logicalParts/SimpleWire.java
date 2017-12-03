@@ -1,6 +1,8 @@
 package logicalParts;
 
 public class SimpleWire extends LogicalObject {
+	private static final long serialVersionUID = 1L;
+	
 	public SimpleWire() {
 		super(1, 1, 0);
 	}
