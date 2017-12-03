@@ -1,4 +1,4 @@
-package graphics;
+package graphicalParts;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -7,8 +7,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 import controller.CircuitStateEnum;
+import graphics.CircuitWindow;
+import graphics.GraficSettings;
 
-public class MovableWire extends MovableObject{
+public class MovableWire extends MovableComponent{
 	private static final long serialVersionUID = 1L;
 	
 	int aPosX, aPosY, bPosX, bPosY;
@@ -21,6 +23,9 @@ public class MovableWire extends MovableObject{
 		wire.bPort=portB;
 		portA.attachWire(wire);
 		portB.attachWire(wire);
+		CircuitWindow.workplace.add(wire);
+		CircuitWindow.frame.repaint();
+		CircuitWindow.frame.revalidate();
 		return  wire;
 	}
 	

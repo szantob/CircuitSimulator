@@ -2,18 +2,18 @@ package controller;
 
 import java.util.ArrayList;
 
-import graphics.MovableObject;
-import parts.CircuitObject;
+import graphicalParts.MovableComponent;
+import logicalParts.LogicalObject;
 
 class Token extends Thread {
 	TokenContainer container;
-	CircuitObject imSittingHere;
-	MovableObject youCanSeeMeHere;
+	LogicalObject imSittingHere;
+	MovableComponent youCanSeeMeHere;
 	
 	private int tokenTTL;
 	private int speedReducer;
 	
-	public Token(CircuitObject nextObject, int timeToLive) {
+	public Token(LogicalObject nextObject, int timeToLive) {
 		if(timeToLive==0);			//////////////////  Cyclic circuit!!!!!!
 		tokenTTL=timeToLive;
 		imSittingHere=nextObject;
@@ -41,7 +41,7 @@ public class TokenContainer extends ArrayList<Token>{
 	public TokenContainer(){
 		super();
 	}
-	public void addToken(CircuitObject nextObject, int timeToLive) {
+	public void addToken(LogicalObject nextObject, int timeToLive) {
 		add(new Token(nextObject, timeToLive));
 	}
 	public void reduceSimSpeed(int factor) {

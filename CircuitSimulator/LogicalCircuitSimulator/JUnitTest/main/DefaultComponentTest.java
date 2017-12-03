@@ -2,6 +2,11 @@ package main;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import logicalParts.LogicalObject;
+import logicalParts.SimpleInput;
+import logicalParts.SimpleOutput;
+import logicalParts.SimpleWire;
 import parts.*;
 
 public class DefaultComponentTest {
@@ -49,7 +54,7 @@ public class DefaultComponentTest {
 		SimpleInput in = new SimpleInput();
 		SimpleOutput out = new SimpleOutput();
 		Assert.assertEquals("U",out.toString());
-		CircuitObject.Connect(in.getPort(), out.getPort());
+		LogicalObject.Connect(in.getPort(), out.getPort());
 		Assert.assertEquals("U",out.toString());
 		
 		in.setState("H");
@@ -74,7 +79,7 @@ public class DefaultComponentTest {
 	public void SimpleOutputUpdateReturnTest(){
 		SimpleInput in = new SimpleInput();
 		SimpleOutput out = new SimpleOutput();
-		CircuitObject.Connect(in.getPort(), out.getPort());
+		LogicalObject.Connect(in.getPort(), out.getPort());
 
 		in.setState("H");
 		in.Update();
@@ -98,7 +103,7 @@ public class DefaultComponentTest {
 		SimpleWire wire = new SimpleWire();
 		Assert.assertEquals("U",wire.toString());
 		
-		CircuitObject.Connect(in.getPort(), wire.getPort(0));
+		LogicalObject.Connect(in.getPort(), wire.getPort(0));
 		Assert.assertEquals("U",wire.toString());
 		
 		in.setState("L");
@@ -115,7 +120,7 @@ public class DefaultComponentTest {
 		SimpleInput in = new SimpleInput();
 		SimpleWire wire = new SimpleWire();
 		boolean temp;
-		CircuitObject.Connect(in.getPort(), wire.getPort(0));
+		LogicalObject.Connect(in.getPort(), wire.getPort(0));
 		
 		in.setState("L");
 		in.Update();
@@ -139,8 +144,8 @@ public class DefaultComponentTest {
 		SimpleInput in = new SimpleInput();
 		SimpleWire wire = new SimpleWire();
 		SimpleOutput out = new SimpleOutput();
-		CircuitObject.Connect(in.getPort(), wire.getPort(0));
-		CircuitObject.Connect(wire.getPort(0), out.getPort(0));
+		LogicalObject.Connect(in.getPort(), wire.getPort(0));
+		LogicalObject.Connect(wire.getPort(0), out.getPort(0));
 
 		in.setState("H");
 		in.Update();

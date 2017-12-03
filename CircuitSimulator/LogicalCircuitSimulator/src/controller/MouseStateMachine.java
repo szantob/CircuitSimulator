@@ -1,10 +1,11 @@
 package controller;
 
-import graphics.MovableComponentPort;
-import graphics.MovableWire;
-import parts.CircuitObject;
-import parts.CircuitObjectPort;
-import parts.SimpleWire;
+import graphicalParts.MovableComponent;
+import graphicalParts.MovableComponentPort;
+import graphicalParts.MovableWire;
+import logicalParts.LogicalObject;
+import logicalParts.LogicalObjectPort;
+import logicalParts.SimpleWire;
 
 enum MouseState{
 	DEFAULT,
@@ -19,35 +20,16 @@ public class MouseStateMachine {
 	private static MouseState state = MouseState.DEFAULT;
 	
 	public static void objectTreeMouseEvent(String node) {
-		switch(node) {
-		case "AND":
-		case "NAND":
-		case "OR":
-		case "NOR":
-		case "XOR":
-		case "XNOR":
-			state=MouseState.GATE_SELECTED;
-			selectedGate = node;
-			return;
-		case "NOT":
-			return;
-		case "IN":
-			state=MouseState.GATE_SELECTED;
-			selectedGate = node;
-			return;
-		case "OUT":
-			return;
-		default:
-			return;
-		}
+		state=MouseState.GATE_SELECTED;
+		selectedGate = node;
 	}
 	
-	public static String backgroundLeftMouseEvent() {
-		if(state!=MouseState.GATE_SELECTED) return null;
-		String tmp = selectedGate;
+	public static boolean backgroundLeftMouseEvent(int posX, int posY) {
+		if(state!=MouseState.GATE_SELECTED) return false;
+		PartArray.addNewPart(MovableComponent.addGraphicalObject(posX, posY, selectedGate), LogicalObject.addCircuitObject(selectedGate));
 		state=MouseState.DEFAULT;
 		selectedGate = null;
-		return tmp;
+		return true;
 	}
 	public static void backgroundRightMouseEvent() {
 		state = MouseState.DEFAULT;
@@ -59,8 +41,8 @@ public class MouseStateMachine {
 		switch(state) {
 		case PORT_SELECTED:
 			if(port.equals(selectedPort)) return;
-			CircuitObjectPort logicalPort = null; //TODO
-			CircuitObjectPort selectedLogicalPort = null; //TODO
+			LogicalObjectPort logicalPort = null; //TODO
+			LogicalObjectPort selectedLogicalPort = null; //TODO
 			PartArray.addNewPart(	MovableWire.attachMovableWireToPorts(port, selectedPort),
 									SimpleWire.attachSimpleWireToPorts(logicalPort,selectedLogicalPort));
 			state = MouseState.DEFAULT;
@@ -72,5 +54,10 @@ public class MouseStateMachine {
 			break;
 		// TODO foglalkozni az osszes esettel
 		}
+	}
+
+	public static void backgroundMiddleMouseEvent(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }

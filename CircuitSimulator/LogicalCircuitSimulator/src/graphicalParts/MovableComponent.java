@@ -1,14 +1,31 @@
-package graphics;
+package graphicalParts;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import controller.CircuitStateEnum;
+import javax.swing.JPanel;
 
-public class MovableComponent extends MovableObject{
+import controller.CircuitStateEnum;
+import graphics.CircuitWindow;
+import graphics.GraficSettings;
+import graphics.StateChangingColor;
+import logicalParts.LogicalObject;
+
+public abstract class MovableComponent extends JPanel implements StateChangingColor {
 	private static final long serialVersionUID = 1L;
 	private int posX, posY, width, height;
+	
+	protected Color color = Color.YELLOW;
+	private LogicalObject connectedObject;
+	
+	public LogicalObject getConnectedObject() {
+		return connectedObject;
+	}
+	public void connectObject(LogicalObject object) {
+		this.connectedObject = object;
+	}
+
 	
 	MovableComponent mmovableComponent;
 	MovableComponent(){
@@ -61,5 +78,20 @@ public class MovableComponent extends MovableObject{
 			break;
 		}
 		setBackground(color);
+	}
+	public static MovableComponent addGraphicalObject(int posX, int posY, String label) {
+		MovableComponent tmp;
+		switch(label) {
+		case "IN":
+			tmp = new MovableInput(posX, posY, label);
+			break;
+		default:
+			tmp = new MovableGate(posX, posY, label);
+			break;
+		}
+		CircuitWindow.workplace.add(tmp);
+		CircuitWindow.frame.repaint();
+		CircuitWindow.frame.revalidate();
+		return tmp;
 	}
 }

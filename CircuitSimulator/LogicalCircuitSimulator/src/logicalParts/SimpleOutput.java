@@ -1,8 +1,8 @@
-package parts;
+package logicalParts;
 
 import controller.CircuitStateEnum;
 
-public class SimpleOutput extends CircuitObject{
+public class SimpleOutput extends LogicalObject{
 
 	public SimpleOutput() {
 		super(1, 0, 0);
@@ -16,7 +16,7 @@ public class SimpleOutput extends CircuitObject{
 			return false;
 		}
 	}
-	public CircuitObjectPort getPort() {
+	public LogicalObjectPort getPort() {
 		return portList.get(0);
 	}
 }

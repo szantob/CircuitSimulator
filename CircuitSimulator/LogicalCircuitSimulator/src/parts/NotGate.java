@@ -1,8 +1,9 @@
 package parts;
 
 import controller.CircuitStateEnum;
+import logicalParts.LogicalObject;
 
-public class NotGate extends CircuitObject {
+public class NotGate extends LogicalObject {
 	public NotGate() {
 		super(1, 1, 0);
 	}

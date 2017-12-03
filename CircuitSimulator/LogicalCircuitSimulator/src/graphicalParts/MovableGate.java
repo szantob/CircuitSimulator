@@ -1,4 +1,4 @@
-package graphics;
+package graphicalParts;
 
 import javax.swing.JLabel;
 
@@ -9,11 +9,7 @@ public class MovableGate extends MovableComponent {
 	MovableComponentPort inA, inB, out;
 	
 	LogicalGate simObject;
-	MovableGate(){
-		super(10,10,50,40);
-		initialize();
-	}
-	MovableGate(int posX, int posY, String lableStr){
+	public MovableGate(int posX, int posY, String lableStr){
 		super(posX,posY,70,50);
 		super.setChild(this);
 		initialize();

@@ -1,26 +1,23 @@
 package graphics;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import controller.MouseStateMachine;
-import controller.PartArray;
-import parts.CircuitObject;
-
 import javax.swing.event.MouseInputListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import controller.MouseStateMachine;
 
 
 public class CircuitWindow {
@@ -80,7 +77,7 @@ class movableBackground extends JPanel{
 	private void initialize() {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(null);
-		addMouseListener(new MClickListener(this));
+		addMouseListener(new MClickListener());
 		addMouseMotionListener(new MMotionListener(this));
 	}
 }
@@ -88,24 +85,16 @@ class MClickListener implements MouseInputListener {
 
 	JPanel mJPanel;
 	
-	public MClickListener(movableBackground movableBackground) {
-		mJPanel = movableBackground;
+	public MClickListener() {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(SwingUtilities.isLeftMouseButton(e)) {
-			String label = MouseStateMachine.backgroundLeftMouseEvent();
-			if(label==null) return;
-			switch(label) {
-			case "IN":
-				PartArray.addNewPart(new MovableInput(e.getX(),e.getY(), label), CircuitObject.addCircuitObject(label));
-				break;
-			default:
-				PartArray.addNewPart(new MovableGate(e.getX(),e.getY(), label), CircuitObject.addCircuitObject(label));
-				break;
-			}
+			MouseStateMachine.backgroundLeftMouseEvent(e.getX(),e.getY());
 		}else if(SwingUtilities.isRightMouseButton(e)) {
-			MouseStateMachine.backgroundRightMouseEvent();
+			MouseStateMachine.backgroundLeftMouseEvent(e.getX(),e.getY());
+		}else if(SwingUtilities.isMiddleMouseButton(e)) {
+			MouseStateMachine.backgroundMiddleMouseEvent(e.getX(),e.getY());
 		}
 	}
 	@Override
@@ -130,7 +119,6 @@ class MMotionListener implements MouseMotionListener{
 	public MMotionListener(movableBackground movableBackground) {
 		mmovableBackground = movableBackground;
 	}
-
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		int tempX = e.getXOnScreen() - lastMouseX;
@@ -146,12 +134,8 @@ class MMotionListener implements MouseMotionListener{
     	mmovableBackground.setLocation(mmovableBackground.posX,mmovableBackground.posY);
 		//e.getX()+tempX,e.getY()+tempY
 	}
-
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(MouseEvent e) {}
 }
 
 class CircuitObjectTree extends JPanel{

@@ -4,9 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import logicalParts.LogicalObject;
+import logicalParts.SimpleInput;
 import parts.AndGate;
-import parts.CircuitObject;
-import parts.SimpleInput;
 
 public class AndGateTest {
 	SimpleInput inA;
@@ -23,9 +23,9 @@ public class AndGateTest {
 		inA.Update();
 		inB.Update();
 		Assert.assertEquals("U",and.toString());
-		CircuitObject.Connect(inA.getPort(), and.getPort(0));
+		LogicalObject.Connect(inA.getPort(), and.getPort(0));
 		Assert.assertEquals("U",and.toString());
-		CircuitObject.Connect(inB.getPort(), and.getPort(1));
+		LogicalObject.Connect(inB.getPort(), and.getPort(1));
 		Assert.assertEquals("U",and.toString());
 		and.Update();
 	}

@@ -1,6 +1,6 @@
-package parts;
+package logicalParts;
 
-public class SimpleWire extends CircuitObject {
+public class SimpleWire extends LogicalObject {
 	public SimpleWire() {
 		super(1, 1, 0);
 	}
@@ -13,10 +13,11 @@ public class SimpleWire extends CircuitObject {
 			return true;
 		}
 	}
-	public static SimpleWire attachSimpleWireToPorts(CircuitObjectPort portA, CircuitObjectPort portB) {
+	public static SimpleWire attachSimpleWireToPorts(LogicalObjectPort portA, LogicalObjectPort portB) {
+		if(portA==null||portB==null)return null;
 		SimpleWire wire = new SimpleWire();
-		CircuitObject.Connect(portA, wire.getPort(0));
-		CircuitObject.Connect(portB, wire.getPort(1));
+		LogicalObject.Connect(portA, wire.getPort(0));
+		LogicalObject.Connect(portB, wire.getPort(1));
 		return wire;
 	}
 }

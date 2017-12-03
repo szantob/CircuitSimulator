@@ -1,16 +1,16 @@
-package graphics;
+package graphicalParts;
 
 import javax.swing.JLabel;
 
-import parts.CircuitObject;
-import parts.SimpleInput;
+import logicalParts.LogicalObject;
+import logicalParts.SimpleInput;
 
 public class MovableInput extends MovableComponent {
 	private static final long serialVersionUID = 1L;
 	MovableComponentPort out;
 	
 	private SimpleInput simObject;
-	MovableInput(int posX, int posY, String lableStr){
+	public MovableInput(int posX, int posY, String lableStr){
 		super(posX,posY,50,30);
 		//super.setChild(this);
 		initialize();
@@ -29,7 +29,7 @@ public class MovableInput extends MovableComponent {
 	public SimpleInput getSimObject() {
 		return simObject;
 	}
-	public void connectSimObject(CircuitObject simObject) {
+	public void connectSimObject(LogicalObject simObject) {
 		this.simObject = (SimpleInput)simObject;
 	}
 

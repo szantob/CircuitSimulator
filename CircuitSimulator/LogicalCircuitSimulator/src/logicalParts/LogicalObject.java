@@ -1,38 +1,36 @@
-package parts;
+package logicalParts;
 
 import java.util.ArrayList;
 import controller.CircuitStateEnum;
 import controller.TokenContainer;
-import graphics.MovableObject;
+import graphicalParts.MovableComponent;
+import parts.AndGate;
+import parts.OrGate;
+import parts.XorGate;
 
-
-
-
-
-
-public class CircuitObject {
-	protected ArrayList<CircuitObjectPort> portList;
+public abstract class LogicalObject {
+	protected ArrayList<LogicalObjectPort> portList;
 	int I,O,IO;
 	protected CircuitStateEnum state;
 	private int sleepTime;
 	
-	private MovableObject connectedObject;
+	private MovableComponent connectedObject;
 	
-	public CircuitObject(int inputPortNumber, int outputPortNumber, int inoutPortNumber) {
+	public LogicalObject(int inputPortNumber, int outputPortNumber, int inoutPortNumber) {
 		I=inputPortNumber;
 		O=outputPortNumber;
 		IO=inoutPortNumber;
 		state = CircuitStateEnum.UNSTABLE;
 		sleepTime = 100;
-		portList = new ArrayList<CircuitObjectPort>();
+		portList = new ArrayList<LogicalObjectPort>();
 		for(int i=0; i<inputPortNumber;i++) {
-			portList.add(new CircuitObjectPort(CircuitObjectPortDirection.INPUT,this));
+			portList.add(new LogicalObjectPort(CircuitObjectPortDirection.INPUT,this));
 		}
 		for(int i=0; i<outputPortNumber;i++) {
-			portList.add(new CircuitObjectPort(CircuitObjectPortDirection.OUTPUT,this));
+			portList.add(new LogicalObjectPort(CircuitObjectPortDirection.OUTPUT,this));
 		}
 		for(int i=0; i<inoutPortNumber;i++) {
-			portList.add(new CircuitObjectPort(CircuitObjectPortDirection.INOUT,this));
+			portList.add(new LogicalObjectPort(CircuitObjectPortDirection.INOUT,this));
 		}
 	}
 	public void addTokensToOutputs(TokenContainer container, int timeToLive) {
@@ -40,7 +38,7 @@ public class CircuitObject {
 			container.addToken(portList.get(i).GetConnectedObject(), timeToLive);
 		}
 	}
-	public static boolean Connect(CircuitObjectPort portA, CircuitObjectPort portB) {
+	public static boolean Connect(LogicalObjectPort portA, LogicalObjectPort portB) {
 		if(portA.Connect(portB)&&portB.Connect(portA)) throw new RuntimeException();
 		return false;
 	}
@@ -50,7 +48,7 @@ public class CircuitObject {
 	public CircuitStateEnum getState() {
 		return state;
 	}
-	public CircuitObjectPort getPort(int port) {
+	public LogicalObjectPort getPort(int port) {
 		return portList.get(port);
 	}
 	/**
@@ -67,13 +65,13 @@ public class CircuitObject {
 		default: return "U";
 		}
 	}
-	public MovableObject getConnectedObject() {
+	public MovableComponent getConnectedObject() {
 		return connectedObject;
 	}
-	public void connectObject(MovableObject Object) {
+	public void connectObject(MovableComponent Object) {
 		this.connectedObject = Object;
 	}
-	public static CircuitObject addCircuitObject(String name) {
+	public static LogicalObject addCircuitObject(String name) {
 		switch(name) {
 		case "IN":
 			return new SimpleInput();
@@ -86,7 +84,7 @@ public class CircuitObject {
 		case "XOR":
 			return new XorGate();
 		default:
-			return new CircuitObject(0, 0, 0); // TODO
+			return null; // TODO
 		}
 	}
 }

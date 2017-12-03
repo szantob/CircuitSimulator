@@ -1,12 +1,13 @@
 package parts;
 
 import controller.CircuitStateEnum;
+import logicalParts.LogicalObjectPort;
 
 public class OrGate extends LogicalGate {
 	public synchronized boolean Update() {
-		CircuitObjectPort inA = portList.get(0);
-		CircuitObjectPort inB = portList.get(1);
-		CircuitObjectPort out = portList.get(2);
+		LogicalObjectPort inA = portList.get(0);
+		LogicalObjectPort inB = portList.get(1);
+		LogicalObjectPort out = portList.get(2);
 		if(inA.getState()==CircuitStateEnum.UNSTABLE||inB.getState()==CircuitStateEnum.UNSTABLE) {
 			if(out.getState()==CircuitStateEnum.UNSTABLE) {
 				return false;
