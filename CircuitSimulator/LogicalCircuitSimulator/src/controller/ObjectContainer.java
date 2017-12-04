@@ -25,8 +25,9 @@ public class ObjectContainer implements Serializable {
 	
 	
 	public static ObjectContainer newObjectContainer(int posX, int posY, String type) {
-		ObjectContainer temp = new ObjectContainer(GraphicalObject.addGraphicalObject(posX, posY, type),
-													LogicalObject.addCircuitObject(type));
+		PortMap portMap = new PortMap();
+		ObjectContainer temp = new ObjectContainer(GraphicalObject.addGraphicalObject(posX, posY, type, portMap),
+													LogicalObject.addCircuitObject(type,portMap));
 		temp.graphicalComponent.setContainer(temp);
 		/*temp.getGraphicalComponent().connectObject(temp.getLogicalComponent());
 		temp.getLogicalComponent().connectObject(temp.getGraphicalComponent());
@@ -34,8 +35,9 @@ public class ObjectContainer implements Serializable {
 		return temp;
 	}
 	public static ObjectContainer newObjectContainer(GraphicalObjectPort portA, GraphicalObjectPort portB) {
-		MovableWire graphicalWire = MovableWire.attachMovableWireToPorts(portA, portB);
-		SimpleWire logicalWire = new SimpleWire();
+		PortMap portMap = new PortMap();
+		MovableWire graphicalWire = MovableWire.attachMovableWireToPorts(portA, portB, portMap);
+		SimpleWire logicalWire = new SimpleWire(portMap);
 		ObjectContainer temp = new ObjectContainer(graphicalWire,logicalWire);
 		//TODO
 		return temp;

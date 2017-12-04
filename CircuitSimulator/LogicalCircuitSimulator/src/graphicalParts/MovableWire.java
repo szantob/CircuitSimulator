@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 import controller.CircuitStateEnum;
+import controller.PortMap;
 import graphics.CircuitWindow;
 import graphics.GraficSettings;
 
@@ -17,8 +18,9 @@ public class MovableWire extends GraphicalObject{
 	private GraphicalObjectPort aPort, bPort;
 	private volatile Graphics2D g2;
 	
-	public static MovableWire attachMovableWireToPorts(GraphicalObjectPort portA, GraphicalObjectPort portB){
-		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());
+	public static MovableWire attachMovableWireToPorts(GraphicalObjectPort portA, GraphicalObjectPort portB, PortMap portMap){
+		//portMap.addGraphicalObjectPort(portA.getX(), portA.getY(), portA., bela)
+		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY(),portMap);
 		wire.aPort=portA;
 		wire.bPort=portB;
 		portA.attachWire(wire);
@@ -29,8 +31,8 @@ public class MovableWire extends GraphicalObject{
 		return  wire;
 	}
 	
-	public MovableWire(int aPosX, int aPosY, int bPosX, int bPosY){
-		super(0, 0, GraficSettings.WORKPLACE_WIDTH, GraficSettings.WORKPLACE_HEIGHT);
+	public MovableWire(int aPosX, int aPosY, int bPosX, int bPosY, PortMap portMap){
+		super(0, 0, GraficSettings.WORKPLACE_WIDTH, GraficSettings.WORKPLACE_HEIGHT, portMap);
 		this.aPosX=aPosX;
 		this.aPosY=aPosY;
 		this.bPosX=bPosX;

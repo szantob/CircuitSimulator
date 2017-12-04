@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import graphicalParts.GraphicalObject;
 import graphicalParts.GraphicalObjectPort;
 import graphicalParts.side;
+import logicalParts.CircuitObjectPortDirection;
+import logicalParts.LogicalObject;
 import logicalParts.LogicalObjectPort;
 
 public class PortMap {
@@ -21,8 +23,8 @@ public class PortMap {
 		graphicalPortList.add(tmp);
 		return tmp;
 	}
-	public LogicalObjectPort addLogicalObjectPort(int posX, int posY, side portSide, GraphicalObject bela) {
-		LogicalObjectPort tmp = new LogicalObjectPort(null, null); //TODO
+	public LogicalObjectPort addLogicalObjectPort(CircuitObjectPortDirection direction, LogicalObject homeObject) {
+		LogicalObjectPort tmp = new LogicalObjectPort(direction, homeObject); //TODO
 		logicalPortList.add(tmp);
 		return tmp;
 	}
@@ -30,5 +32,11 @@ public class PortMap {
 		for(GraphicalObjectPort i : graphicalPortList) {
 			if(i.getAttachedWire()!=null)i.getAttachedWire().refresh(i);
 		}
+	}
+	public GraphicalObjectPort getG(int i) {
+		return graphicalPortList.get(i);
+	}
+	public LogicalObjectPort getL(int i) {
+		return logicalPortList.get(i);
 	}
 }

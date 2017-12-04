@@ -27,11 +27,11 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		return container;
 	}
 
-	GraphicalObject(int posX, int posY, int width, int height){
+	GraphicalObject(int posX, int posY, int width, int height, PortMap portMap){
     	this.width=width;
     	this.height=height;
+    	this.portMap=portMap;
     	setBounds(posX-width/2, posY-height/2, width, height);
-		portMap = new PortMap();
     	initialize();
 	}
 	protected void moveToPos(int newPosX, int newPosY) {
@@ -64,14 +64,14 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		}
 		setBackground(color);
 	}
-	public static GraphicalObject addGraphicalObject(int posX, int posY, String label) {
+	public static GraphicalObject addGraphicalObject(int posX, int posY, String label, PortMap portMap) {
 		GraphicalObject tmp;
 		switch(label) {
 		case "IN":
-			tmp = new MovableInput(posX, posY, label);
+			tmp = new MovableInput(posX, posY, label, portMap);
 			break;
 		default:
-			tmp = new MovableGate(posX, posY, label);
+			tmp = new MovableGate(posX, posY, label, portMap);
 			break;
 		}
 		CircuitWindow.workplace.add(tmp);

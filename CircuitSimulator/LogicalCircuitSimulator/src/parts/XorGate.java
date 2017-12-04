@@ -1,15 +1,20 @@
 package parts;
 
 import controller.CircuitStateEnum;
+import controller.PortMap;
 import logicalParts.LogicalObjectPort;
 
 public class XorGate extends LogicalGate {
 	private static final long serialVersionUID = 1L;
 
+	public XorGate(PortMap portMap) {
+		super(portMap);
+	}
+
 	public synchronized boolean Update() {
-		LogicalObjectPort inA = portList.get(0);
-		LogicalObjectPort inB = portList.get(1);
-		LogicalObjectPort out = portList.get(2);
+		LogicalObjectPort inA = portMap.getL(0);
+		LogicalObjectPort inB = portMap.getL(1);
+		LogicalObjectPort out = portMap.getL(2);
 		if(inA.getState()==CircuitStateEnum.UNSTABLE||inB.getState()==CircuitStateEnum.UNSTABLE) {
 			if(out.getState()==CircuitStateEnum.UNSTABLE) {
 				return false;

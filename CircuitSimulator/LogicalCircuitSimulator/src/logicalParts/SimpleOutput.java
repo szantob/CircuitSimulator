@@ -1,23 +1,24 @@
 package logicalParts;
 
 import controller.CircuitStateEnum;
+import controller.PortMap;
 
 public class SimpleOutput extends LogicalObject{
 	private static final long serialVersionUID = 1L;
 	
-	public SimpleOutput() {
-		super(1, 0, 0);
+	public SimpleOutput(PortMap portMap) {
+		super(1, 0, 0, portMap);
 		state=CircuitStateEnum.UNSTABLE;
 	}
 	public synchronized boolean Update(){
-		if(portList.get(0).getState()!=state) {
-			state = portList.get(0).getState();
+		if(portMap.getL(0).getState()!=state) {
+			state = portMap.getL(0).getState();
 			return true;
 		}else {
 			return false;
 		}
 	}
 	public LogicalObjectPort getPort() {
-		return portList.get(0);
+		return portMap.getL(0);
 	}
 }

@@ -1,16 +1,19 @@
 package logicalParts;
 
 import controller.CircuitStateEnum;
+import controller.PortMap;
 
 public class SimpleInput extends LogicalObject{
 	private static final long serialVersionUID = 1L;
-	public SimpleInput() {
-		super(0, 1, 0);
+	public SimpleInput(PortMap portMap) {
+		super(0, 1, 0, portMap);
 		state=CircuitStateEnum.UNSTABLE;
 	}
-	public synchronized boolean Update(){
+	public synchronized boolean Update(){/*
 		if(portList.get(0).getState()!=state) {
-			portList.get(0).setState(this, state);
+			portList.get(0).setState(this, state);*/
+		if(portMap.getL(0).getState()!=state) {
+			portMap.getL(0).setState(this, state);
 			return true;
 		}else {
 			return false;
@@ -31,6 +34,7 @@ public class SimpleInput extends LogicalObject{
 		}
 	}
 	public LogicalObjectPort getPort() {
-		return portList.get(0);
+		//return portList.get(0);
+		return portMap.getL(0);
 	}
 }

@@ -2,30 +2,26 @@ package graphicalParts;
 
 import javax.swing.JLabel;
 
+import controller.PortMap;
 import logicalParts.LogicalObject;
 import logicalParts.SimpleInput;
 
 public class MovableInput extends GraphicalObject {
 	private static final long serialVersionUID = 1L;
-	//GraphicalObjectPort out;
 	
 	private SimpleInput simObject;
-	public MovableInput(int posX, int posY, String lableStr){
-		super(posX,posY,50,30);
-		//super.setChild(this);
+	public MovableInput(int posX, int posY, String lableStr, PortMap portMap){
+		super(posX,posY,50,30, portMap);
 		initialize();
 		JLabel label = new JLabel("IN");
 		label.setBounds(10, 13, 46, 14);
 		add(label);
 	}
 	void initialize() {
-		/*out=new GraphicalObjectPort(27, 8, side.RIGHT,this);
-		add(out);*/
 		add(portMap.addGraphicalObjectPort(27, 8, side.RIGHT,this));
 	}
 	
 	public void updateConnections() {
-		//if(out.getAttachedWire()!=null)out.getAttachedWire().refresh(out);
 		portMap.refreshAttachedWires();
 	}
 	public SimpleInput getSimObject() {

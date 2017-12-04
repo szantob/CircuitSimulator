@@ -4,11 +4,7 @@ import java.io.Serializable;
 
 import controller.CircuitStateEnum;
 
-enum CircuitObjectPortDirection{
-	INPUT,
-	OUTPUT,
-	INOUT
-}
+
 
 public class LogicalObjectPort implements Serializable{
 	private static final long serialVersionUID = 1L;

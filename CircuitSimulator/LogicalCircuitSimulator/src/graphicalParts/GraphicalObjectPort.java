@@ -41,11 +41,11 @@ public class GraphicalObjectPort extends JPanel {
 			
 		}else {
 			attachedWire = wire;
-			/////////////////////////////////////
+			//TODO
 		}
 	}
 	public void updatePos() {
-		////////////////////
+		//TODO
 	}
 	public MovableWire getAttachedWire() {
 		return attachedWire;
