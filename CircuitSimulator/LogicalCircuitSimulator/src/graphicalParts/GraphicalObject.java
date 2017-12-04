@@ -17,7 +17,7 @@ import graphics.StateChangingColor;
 public abstract class GraphicalObject extends JPanel implements StateChangingColor, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int posX, posY, width, height;
+	private int width, height;
 	
 	private ArrayList<GraphicalObjectPort> portList;
 	private ObjectContainer container;
@@ -32,8 +32,6 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
     	initialize();
 	}
 	GraphicalObject(int posX, int posY, int width, int height){
-    	this.posX=posX;
-    	this.posY=posY;
     	this.width=width;
     	this.height=height;
     	setBounds(posX-width/2, posY-height/2, width, height);

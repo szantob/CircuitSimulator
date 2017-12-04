@@ -1,9 +1,13 @@
 package graphics;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Line2D;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -61,6 +65,23 @@ class movableBackground extends JPanel{
 	int posX, posY;
 	int width, height;
 	
+	private volatile Graphics2D g2;
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g2 = (Graphics2D) g;
+		for(int i=0; i<width; i+=GraficSettings.GRID_SIZE) {
+	        Line2D lin = new Line2D.Float(i, 0, i, height);
+			g2.setColor(Color.GRAY);
+			g2.setStroke(new BasicStroke(1f));
+	        g2.draw(lin);
+		}
+		for(int i=0; i<height; i+=GraficSettings.GRID_SIZE) {
+	        Line2D lin = new Line2D.Float(0, i, width, i);
+			g2.setColor(Color.GRAY);
+			g2.setStroke(new BasicStroke(1f));
+	        g2.draw(lin);
+		}
+	}
 	movableBackground(){
 		this.posX=0;
 		this.posY=0;
