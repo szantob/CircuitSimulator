@@ -28,9 +28,6 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		return container;
 	}
 
-
-	
-	GraphicalObject mmovableComponent;
 	GraphicalObject(){
     	initialize();
 	}
@@ -42,27 +39,16 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
     	setBounds(posX-width/2, posY-height/2, width, height);
     	initialize();
 	}
+	protected void moveToPos(int newPosX, int newPosY) {
+    	setLocation(newPosX-width/2,newPosY-height/2);
+    	updateConnections();
+	}
 	private void initialize() {
 		setBackground(Color.YELLOW);
-		addMouseMotionListener(new MouseAdapter(){
-            public void mouseDragged(MouseEvent E)
-            {
-            	posX=E.getX()+getX();
-               	posY=E.getY()+getY();
-               	if(posX<0) posX=0;
-	        	if(posY<0) posY=0;
-	        	if(posX>2*GraficSettings.WORKPLACE_WIDTH) posX=2*GraficSettings.WORKPLACE_WIDTH;
-	        	if(posY>2*GraficSettings.WORKPLACE_HEIGHT) posY=2*GraficSettings.WORKPLACE_HEIGHT;
-	        	setLocation(posX-width/2,posY-height/2);
-	        	((MovableGate)mmovableComponent).updateConnections();
-            }
-        });
+		addMouseMotionListener(new MouseDragListener(this));
 		setLayout(null);
 	}
 	public void updateConnections() { //TODO
-	}
-	public void setChild(MovableGate movableGate) {
-		mmovableComponent = movableGate;
 	}
 	
 	protected Color color = Color.YELLOW;
@@ -107,16 +93,32 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		return portList;
 	}
 	public GraphicalObjectPort getPort(int indexOf) {
-		// TODO Auto-generated method stub
-		return null;
+		return portList.get(indexOf);
 	}
+	
 }
 
-
+class MouseDragListener extends MouseAdapter{
+	GraphicalObject homeObject;
+	public MouseDragListener(GraphicalObject homeObject){
+		this.homeObject=homeObject;
+	}
+	public void mouseDragged(MouseEvent E) {
+		int posX, posY;
+    	posX=E.getX()+homeObject.getX();
+    	posY=E.getY()+homeObject.getY();
+       	if(posX<0) posX=0;
+    	if(posY<0) posY=0;
+    	if(posX>2*GraficSettings.WORKPLACE_WIDTH) posX=2*GraficSettings.WORKPLACE_WIDTH;
+    	if(posY>2*GraficSettings.WORKPLACE_HEIGHT) posY=2*GraficSettings.WORKPLACE_HEIGHT;
+    	homeObject.moveToPos(posX,posY);    	
+	}
+}
+/*
 class MouseMoveAdapter extends MouseAdapter{
 	GraphicalObject homeObject;
 	MouseMoveAdapter(GraphicalObject homeObject){
 		this.homeObject=homeObject;
 	}
 
-}
+}*/

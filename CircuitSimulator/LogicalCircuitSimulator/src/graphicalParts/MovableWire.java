@@ -78,4 +78,6 @@ public class MovableWire extends GraphicalObject{
 		CircuitWindow.frame.repaint();
 		CircuitWindow.frame.revalidate();
 	}
+	protected void moveToPos(int newPosX, int newPosY) {
+	}
 }

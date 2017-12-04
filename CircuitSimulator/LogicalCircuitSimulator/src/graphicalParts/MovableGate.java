@@ -11,7 +11,6 @@ public class MovableGate extends GraphicalObject {
 	LogicalGate simObject;
 	public MovableGate(int posX, int posY, String lableStr){
 		super(posX,posY,70,50);
-		super.setChild(this);
 		initialize();
 		JLabel label = new JLabel(lableStr);
 		label.setBounds(10, 18, 46, 14);
