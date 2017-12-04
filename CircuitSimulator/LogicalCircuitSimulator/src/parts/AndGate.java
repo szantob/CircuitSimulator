@@ -20,6 +20,7 @@ public class AndGate extends LogicalGate {
 			}else {
 				this.state = CircuitStateEnum.UNSTABLE;
 				out.setState(this, CircuitStateEnum.UNSTABLE);
+				graphicalUpdate();
 				return true;
 			}
 		}else if(inA.getState()==CircuitStateEnum.HIGH&&inB.getState()==CircuitStateEnum.HIGH) {
@@ -28,6 +29,7 @@ public class AndGate extends LogicalGate {
 			}else {
 				this.state = CircuitStateEnum.HIGH;
 				out.setState(this, CircuitStateEnum.HIGH);
+				graphicalUpdate();
 				return true;
 			}
 		}else {
@@ -36,6 +38,7 @@ public class AndGate extends LogicalGate {
 			}else {
 				this.state = CircuitStateEnum.LOW;
 				out.setState(this, CircuitStateEnum.LOW);
+				graphicalUpdate();
 				return true;
 			}
 		}

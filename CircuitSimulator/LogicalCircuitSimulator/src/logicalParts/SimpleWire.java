@@ -21,8 +21,21 @@ public class SimpleWire extends LogicalObject {
 	public static SimpleWire attachSimpleWireToPorts(LogicalObjectPort portA, LogicalObjectPort portB, PortMap portMap) {
 		if(portA==null||portB==null)return null;
 		SimpleWire wire = new SimpleWire(portMap);
-		LogicalObject.Connect(portA, wire.getPort(0));
-		LogicalObject.Connect(portB, wire.getPort(1));
+		switch(portA.direction) {
+		case INPUT:
+			LogicalObject.Connect(portA, wire.getPort(1));
+			LogicalObject.Connect(wire.getPort(0), portB);
+			break;
+		case OUTPUT:
+			LogicalObject.Connect(portA, wire.getPort(0));
+			LogicalObject.Connect(wire.getPort(1), portB);
+			break;
+		case INOUT:
+		default:
+			LogicalObject.Connect(portA, wire.getPort(0));
+			LogicalObject.Connect(wire.getPort(1), portB);
+			break;
+		}
 		return wire;
 	}
 }

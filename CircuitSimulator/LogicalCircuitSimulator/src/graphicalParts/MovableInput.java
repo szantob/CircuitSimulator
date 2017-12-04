@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
-
 import controller.PortMap;
 import logicalParts.LogicalObject;
 import logicalParts.SimpleInput;
@@ -17,10 +15,6 @@ public class MovableInput extends GraphicalObject {
 	public MovableInput(int posX, int posY, String lableStr, PortMap portMap){
 		super(posX,posY,61,30, portMap);
 		initialize();
-		
-		/*JLabel label = new JLabel("IN");
-		label.setBounds(10, 13, 46, 14);
-		add(label);*/
 	}
 	void initialize() {
 		String lvl[] = {"H", "L"};
@@ -53,6 +47,10 @@ class ComboBoxActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
         JComboBox<String> cb = (JComboBox<String>)e.getSource();
         String logicalLevelStr = (String)cb.getSelectedItem();
-		homeObject.getHomeContainer().updateLogicalComponent(logicalLevelStr);
+        try {
+        	homeObject.getHomeContainer().updateLogicalComponent(logicalLevelStr);
+        }catch(Exception exc) {
+        	//TODO
+        }
 	}
 }

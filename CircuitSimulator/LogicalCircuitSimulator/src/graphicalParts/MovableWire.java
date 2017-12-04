@@ -21,8 +21,8 @@ public class MovableWire extends GraphicalObject{
 	public static MovableWire attachMovableWireToPorts(GraphicalObjectPort portA, GraphicalObjectPort portB, PortMap portMap){
 		//portMap.addGraphicalObjectPort(portA.getX(), portA.getY(), portA., bela)
 		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY(),portMap);
-		wire.aPort=portA;
-		wire.bPort=portB;
+		wire.aPort=portMap.addVirtualGraphicalObjectPort(portA);
+		wire.bPort=portMap.addVirtualGraphicalObjectPort(portB);
 		portA.attachWire(wire);
 		portB.attachWire(wire);
 		CircuitWindow.workplace.add(wire);

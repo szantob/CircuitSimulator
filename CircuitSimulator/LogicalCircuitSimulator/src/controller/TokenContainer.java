@@ -39,7 +39,10 @@ public class TokenContainer extends ArrayList<Token>{
 		super();
 	}
 	public void addToken(LogicalObject nextObject, int timeToLive) {
-		add(new Token(nextObject, timeToLive));
+		Token token = new Token(nextObject, timeToLive);
+		token.container=this;
+		add(token);
+		token.start();
 	}
 	public void reduceSimSpeed(int factor) {
 		for(Token token : this) {

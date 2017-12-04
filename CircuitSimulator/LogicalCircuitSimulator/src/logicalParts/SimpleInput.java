@@ -13,7 +13,9 @@ public class SimpleInput extends LogicalObject{
 	public synchronized boolean Update(){
 		if(portMap.getL(0).getState()!=state) {
 			portMap.getL(0).setState(this, state);
+			try {
 			graphicalUpdate();
+			}catch(Exception e) {} //TODO
 			return true;
 		}else {
 			return false;

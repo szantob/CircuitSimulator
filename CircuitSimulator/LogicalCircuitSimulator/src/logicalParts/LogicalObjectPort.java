@@ -22,7 +22,7 @@ public class LogicalObjectPort implements Serializable{
 		this.state=CircuitStateEnum.UNSTABLE;
 	}
 	public boolean Connect(LogicalObjectPort toPort) {
-		if((direction == toPort.direction)&&direction!=CircuitObjectPortDirection.INOUT) return false;
+		if((direction == toPort.direction)&&direction!=CircuitObjectPortDirection.INOUT) throw new RuntimeException("Same port direction"); //TODO
 		connectedPort = toPort;
 		connectedObject = toPort.GetHomeObject();
 		return false;

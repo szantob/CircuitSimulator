@@ -42,4 +42,9 @@ public class PortMap {
 	public LogicalObjectPort GtoL(GraphicalObjectPort graphicalPort) {
 		return logicalPortList.get(graphicalPortList.indexOf(graphicalPort));
 	}
+
+	public GraphicalObjectPort addVirtualGraphicalObjectPort(GraphicalObjectPort port) {
+		graphicalPortList.add(port);
+		return port;
+	}
 }

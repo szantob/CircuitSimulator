@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import controller.CircuitStateEnum;
 import controller.ObjectContainer;
 import controller.PortMap;
-import controller.TokenContainer;
 import graphicalParts.GraphicalObject;
 import graphicalParts.GraphicalObjectPort;
 import main.Main;
@@ -41,13 +40,16 @@ public abstract class LogicalObject implements Serializable {
 		}
 	}
 	public void addTokensToOutputs(int timeToLive) {
-		for(int i=I;i<i+O;i++) {
+		for(int i=I;i<I+O;i++) {
 			Main.tokenContainer.addToken(portMap.getL(i).GetConnectedObject(), timeToLive);
 		}
 	}
 	public static boolean Connect(LogicalObjectPort portA, LogicalObjectPort portB) {
-		if(portA.Connect(portB)&&portB.Connect(portA)) throw new RuntimeException();
-		return false;
+		boolean aIsConnected, bIsConnected;
+		aIsConnected = portA.Connect(portB);
+		bIsConnected = portB.Connect(portA);
+		if(aIsConnected&&bIsConnected) throw new RuntimeException();
+		return true;
 	}
 	public synchronized boolean Update() {return false;}
 	public void tokenUpdate() {}
