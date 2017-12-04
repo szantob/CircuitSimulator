@@ -4,6 +4,7 @@ import controller.CircuitStateEnum;
 import logicalParts.LogicalObject;
 
 public class NotGate extends LogicalObject {
+	private static final long serialVersionUID = 1L;
 	public NotGate() {
 		super(1, 1, 0);
 	}

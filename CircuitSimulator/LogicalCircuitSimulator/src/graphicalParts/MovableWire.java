@@ -15,7 +15,7 @@ public class MovableWire extends GraphicalObject{
 	
 	int aPosX, aPosY, bPosX, bPosY;
 	private GraphicalObjectPort aPort, bPort;
-	private Graphics2D g2;
+	private volatile Graphics2D g2;
 	
 	public static MovableWire attachMovableWireToPorts(GraphicalObjectPort portA, GraphicalObjectPort portB){
 		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY());

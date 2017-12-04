@@ -8,70 +8,81 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import graphicalParts.GraphicalObject;
+import graphicalParts.GraphicalObjectPort;
 import graphics.CircuitWindow;
-import logicalParts.LogicalObject;
 import main.Main;
 
 public class PartArray implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private static ArrayList<GraphicalObject> graphicalPartList = new ArrayList<GraphicalObject>();
-	private static ArrayList<LogicalObject> locicalPartList = new ArrayList<LogicalObject>();
+	
+	private ArrayList<ObjectContainer> objectContainerList = new ArrayList<ObjectContainer>();
+	
 	private static String lastSavePath = "/saves/test";
 
-	void addPart(GraphicalObject graphical, LogicalObject logical){
-		graphicalPartList.add(graphical);
-		//TODO
-		//locicalPartList.add(logical);
+	public ObjectContainer addPart(ObjectContainer container) {
+		objectContainerList.add(container);
+		return container;
+	}
+	public boolean addNewPart(int posX, int posY, String type) {
+		try {
+			ObjectContainer temp = ObjectContainer.newObjectContainer(posX, posY, type);
+			Main.partArray.addPart(temp);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	public static boolean addNewPart(GraphicalObjectPort portA, GraphicalObjectPort portB) {
+		try {
+			ObjectContainer temp = ObjectContainer.newObjectContainer(portA,portB);
+			Main.partArray.addPart(temp);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 	
-	public static void addNewPart(GraphicalObject graphical, LogicalObject logical) {
-		Main.partArray.addPart(graphical, logical);
-		//TODO
-		//graphical.connectObject(logical);
-		//logical.connectObject(graphical);
-	}
-	
-	static boolean resetWorspace(){
+	boolean resetWorspace(){
 		CircuitWindow.workplace.removeAll();
-		for(GraphicalObject i : graphicalPartList) {
-			CircuitWindow.workplace.add(i);
+		for(ObjectContainer i : objectContainerList) {
+			CircuitWindow.workplace.add(i.getGraphicalComponent());
 		}
 		CircuitWindow.frame.repaint();
 		CircuitWindow.frame.revalidate();
 		return true;
 	}
 	
-	public static String saveAs(String path) {
+	public String saveAs(String path) {
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(path +".circ"));
-			for(GraphicalObject i : graphicalPartList) {
+			for(ObjectContainer i : objectContainerList) {
 				out.writeObject(i);
 			}
 			out.close();
 			lastSavePath = path;
-			return "true";
+			return null;
 		} catch (IOException e) {
 			return e.getMessage();
 		}
 	}
-	public static String save() {
+	public String save() {
 		return saveAs(lastSavePath);
 	}
-	public static String loadAs(String path) {
+	public String loadAs(String path) {
 		ObjectInputStream in;
 		try {
 			in = new ObjectInputStream(new FileInputStream(path));
-			Main.partArray = new PartArray();
-			//TODO
 			Main.partArray = (PartArray) in.readObject();
 			in.close();
 			resetWorspace();
-			return "true";
+			return null;
 		} catch (IOException | ClassNotFoundException e) {
 			return e.getMessage();
 		}
 	}
-	
+	public static void newPage() {
+		Main.partArray = new PartArray();
+		Main.partArray.resetWorspace();
+	}
 }

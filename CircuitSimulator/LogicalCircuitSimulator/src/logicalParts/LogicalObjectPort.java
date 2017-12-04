@@ -1,5 +1,7 @@
 package logicalParts;
 
+import java.io.Serializable;
+
 import controller.CircuitStateEnum;
 
 enum CircuitObjectPortDirection{
@@ -8,7 +10,8 @@ enum CircuitObjectPortDirection{
 	INOUT
 }
 
-public class LogicalObjectPort{
+public class LogicalObjectPort implements Serializable{
+	private static final long serialVersionUID = 1L;
 	protected CircuitObjectPortDirection direction;
 	protected LogicalObjectPort connectedPort;
 	private LogicalObject connectedObject;

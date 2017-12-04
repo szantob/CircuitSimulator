@@ -1,11 +1,7 @@
 package controller;
 
-import graphicalParts.GraphicalObject;
 import graphicalParts.GraphicalObjectPort;
-import graphicalParts.MovableWire;
-import logicalParts.LogicalObject;
-import logicalParts.LogicalObjectPort;
-import logicalParts.SimpleWire;
+import main.Main;
 
 enum MouseState{
 	DEFAULT,
@@ -26,7 +22,7 @@ public class MouseStateMachine {
 	
 	public static boolean backgroundLeftMouseEvent(int posX, int posY) {
 		if(state!=MouseState.GATE_SELECTED) return false;
-		PartArray.addNewPart(GraphicalObject.addGraphicalObject(posX, posY, selectedGate), LogicalObject.addCircuitObject(selectedGate));
+		Main.partArray.addNewPart(posX, posY, selectedGate);
 		state=MouseState.DEFAULT;
 		selectedGate = null;
 		return true;
@@ -41,10 +37,7 @@ public class MouseStateMachine {
 		switch(state) {
 		case PORT_SELECTED:
 			if(port.equals(selectedPort)) return;
-			LogicalObjectPort logicalPort = null; //TODO
-			LogicalObjectPort selectedLogicalPort = null; //TODO
-			PartArray.addNewPart(	MovableWire.attachMovableWireToPorts(port, selectedPort),
-									SimpleWire.attachSimpleWireToPorts(logicalPort,selectedLogicalPort));
+			if(!PartArray.addNewPart(port,selectedPort)) return; //TODO
 			state = MouseState.DEFAULT;
 			selectedPort = null;
 			break;

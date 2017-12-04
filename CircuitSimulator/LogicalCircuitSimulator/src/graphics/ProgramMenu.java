@@ -11,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import controller.PartArray;
+import main.Main;
 
 public class ProgramMenu extends JMenuBar{
 	private static final long serialVersionUID = 1L;
@@ -20,6 +21,9 @@ public class ProgramMenu extends JMenuBar{
 	}
 	private void initialize() {
 		JMenu mnFile = new JMenu("File");
+			JMenuItem mntmNew = new JMenuItem("New");
+				mntmNew.addActionListener(new newActionListener());
+			mnFile.add(mntmNew);
 			JMenuItem mntmSave = new JMenuItem("Save");
 				mntmSave.addActionListener(new saveActionListener());
 			mnFile.add(mntmSave);
@@ -44,15 +48,14 @@ class saveAsActionListener implements ActionListener {
 		JFileChooser fileChooser = new JFileChooser(Paths.get("").toAbsolutePath().toString());
 		if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 		  File file = fileChooser.getSelectedFile();
-		  PartArray.saveAs(file.getPath());
+		  Main.partArray.saveAs(file.getPath());
 		}
 	}
 }
-
 class saveActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		PartArray.save();
+		Main.partArray.save();
 	}
 }
 class openActionListener implements ActionListener {
@@ -61,9 +64,15 @@ class openActionListener implements ActionListener {
 		JFileChooser fileChooser = new JFileChooser(Paths.get("").toAbsolutePath().toString());
 		if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
-			PartArray.loadAs(file.getPath());
+			Main.partArray.loadAs(file.getPath());
 		}
 	}
+}
+class newActionListener implements ActionListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		PartArray.newPage();	
+	}	
 }
 
 

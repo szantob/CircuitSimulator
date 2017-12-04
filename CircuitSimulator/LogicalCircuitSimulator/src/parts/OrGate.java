@@ -4,6 +4,8 @@ import controller.CircuitStateEnum;
 import logicalParts.LogicalObjectPort;
 
 public class OrGate extends LogicalGate {
+	private static final long serialVersionUID = 1L;
+
 	public synchronized boolean Update() {
 		LogicalObjectPort inA = portList.get(0);
 		LogicalObjectPort inB = portList.get(1);

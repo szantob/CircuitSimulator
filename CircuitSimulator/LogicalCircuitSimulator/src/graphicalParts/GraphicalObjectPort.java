@@ -19,6 +19,7 @@ public class GraphicalObjectPort extends JPanel {
 	private JRadioButton button;
 	private side portSide;
 	private MovableWire attachedWire;
+	
 	public GraphicalObjectPort(int posX, int posY, side portSide, GraphicalObject bela){
 		this.bela=bela;
 		this.portSide=portSide;

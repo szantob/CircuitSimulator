@@ -4,28 +4,30 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import controller.CircuitStateEnum;
+import controller.ObjectContainer;
 import graphics.CircuitWindow;
 import graphics.GraficSettings;
 import graphics.StateChangingColor;
-import logicalParts.LogicalObject;
 
 public abstract class GraphicalObject extends JPanel implements StateChangingColor, Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	private int posX, posY, width, height;
 	
-	protected Color color = Color.YELLOW;
-	private LogicalObject connectedObject;
-	
-	public LogicalObject getConnectedObject() {
-		return connectedObject;
+	private ArrayList<GraphicalObjectPort> portList;
+	private ObjectContainer container;
+	public void setContainer(ObjectContainer container) {
+		this.container=container;
 	}
-	public void connectObject(LogicalObject object) {
-		this.connectedObject = object;
+	public ObjectContainer getmyContainer() {
+		return container;
 	}
+
 
 	
 	GraphicalObject mmovableComponent;
@@ -57,12 +59,13 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
         });
 		setLayout(null);
 	}
-	@SuppressWarnings("unused")
-	private void updateConnections() {
+	public void updateConnections() { //TODO
 	}
 	public void setChild(MovableGate movableGate) {
 		mmovableComponent = movableGate;
 	}
+	
+	protected Color color = Color.YELLOW;
 	public void setColorByState(CircuitStateEnum state) {
 		switch(state) {
 		case HIGH:
@@ -95,4 +98,25 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		CircuitWindow.frame.revalidate();
 		return tmp;
 	}
+	public GraphicalObjectPort addGraphicalObjectPort(int posX, int posY, side portSide, GraphicalObject bela) {
+		GraphicalObjectPort tmp = new GraphicalObjectPort(posX, posY, portSide, bela);
+		portList.add(tmp);
+		return tmp;
+	}
+	public ArrayList<GraphicalObjectPort> getObjectPortList(){
+		return portList;
+	}
+	public GraphicalObjectPort getPort(int indexOf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+
+
+class MouseMoveAdapter extends MouseAdapter{
+	GraphicalObject homeObject;
+	MouseMoveAdapter(GraphicalObject homeObject){
+		this.homeObject=homeObject;
+	}
+
 }

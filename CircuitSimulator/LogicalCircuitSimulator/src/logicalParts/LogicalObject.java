@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controller.CircuitStateEnum;
 import controller.TokenContainer;
 import graphicalParts.GraphicalObject;
+import graphicalParts.GraphicalObjectPort;
 import parts.AndGate;
 import parts.OrGate;
 import parts.XorGate;
@@ -88,5 +89,9 @@ public abstract class LogicalObject implements Serializable {
 		default:
 			return null; // TODO
 		}
+	}
+	public ArrayList<GraphicalObjectPort> getObjectPortList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
