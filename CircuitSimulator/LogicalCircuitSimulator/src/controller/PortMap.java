@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import graphicalParts.GraphicalObject;
@@ -9,7 +10,8 @@ import logicalParts.CircuitObjectPortDirection;
 import logicalParts.LogicalObject;
 import logicalParts.LogicalObjectPort;
 
-public class PortMap {
+public class PortMap implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private ArrayList<GraphicalObjectPort> graphicalPortList;
 	private ArrayList<LogicalObjectPort> logicalPortList;
 

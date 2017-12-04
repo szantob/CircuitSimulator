@@ -14,10 +14,10 @@ import main.Main;
 
 public class PartArray implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	private ArrayList<ObjectContainer> objectContainerList = new ArrayList<ObjectContainer>();
-	
 	private static String lastSavePath = "/saves/test";
+	
+	private ArrayList<ObjectContainer> objectContainerList = new ArrayList<ObjectContainer>(); //Serialize
+	
 
 	public ObjectContainer addPart(ObjectContainer container) {
 		objectContainerList.add(container);

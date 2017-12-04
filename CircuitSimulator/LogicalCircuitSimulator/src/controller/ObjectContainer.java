@@ -14,15 +14,15 @@ import logicalParts.SimpleWire;
  * @author Szanto Benedek David
  *
  */
-public class ObjectContainer implements Serializable {
+public class ObjectContainer implements Serializable { //Serialize
 	private static final long serialVersionUID = 1L;
 	private GraphicalObject graphicalComponent;
 	private LogicalObject logicalComponent;
+	
 	ObjectContainer(GraphicalObject graphicalComponent, LogicalObject logicalComponent){
 		this.graphicalComponent=graphicalComponent;
 		this.logicalComponent=logicalComponent;
 	}
-	
 	
 	public static ObjectContainer newObjectContainer(int posX, int posY, String type) {
 		PortMap portMap = new PortMap();

@@ -12,9 +12,9 @@ import parts.AndGate;
 import parts.OrGate;
 import parts.XorGate;
 
-public abstract class LogicalObject implements Serializable {
+public abstract class LogicalObject implements Serializable { //SerializeOK
 	private static final long serialVersionUID = 1L;
-	protected ObjectContainer container;
+	protected ObjectContainer container; //SerializeOK
 	public PortMap portMap;
 	int I,O,IO;
 	protected CircuitStateEnum state;

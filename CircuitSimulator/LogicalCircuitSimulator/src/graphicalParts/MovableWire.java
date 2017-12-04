@@ -1,5 +1,5 @@
 package graphicalParts;
-// TODO Moving bug
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,10 +16,9 @@ public class MovableWire extends GraphicalObject{
 	
 	int aPosX, aPosY, bPosX, bPosY;
 	private GraphicalObjectPort aPort, bPort;
-	private volatile Graphics2D g2;
+	private transient Graphics2D g2;
 	
 	public static MovableWire attachMovableWireToPorts(GraphicalObjectPort portA, GraphicalObjectPort portB, PortMap portMap){
-		//portMap.addGraphicalObjectPort(portA.getX(), portA.getY(), portA., bela)
 		MovableWire wire = new MovableWire(portA.getConnectionX(), portA.getConnectionY(), portB.getConnectionX(), portB.getConnectionY(),portMap);
 		wire.aPort=portMap.addVirtualGraphicalObjectPort(portA);
 		wire.bPort=portMap.addVirtualGraphicalObjectPort(portB);
@@ -81,6 +80,5 @@ public class MovableWire extends GraphicalObject{
 		CircuitWindow.frame.repaint();
 		CircuitWindow.frame.revalidate();
 	}
-	protected void moveToPos(int newPosX, int newPosY) {
-	}
+	protected void moveToPos(int newPosX, int newPosY) {}
 }

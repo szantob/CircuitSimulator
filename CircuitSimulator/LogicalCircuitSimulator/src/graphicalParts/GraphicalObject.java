@@ -20,6 +20,8 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 	
 	private ObjectContainer container;
 	
+	protected Color color = Color.YELLOW;
+	
 	public void setContainer(ObjectContainer container) {
 		this.container=container;
 	}
@@ -46,7 +48,6 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 	public void updateConnections() { //TODO
 	}
 	
-	protected Color color = Color.YELLOW;
 	public void setColorByState(CircuitStateEnum state) {
 		switch(state) {
 		case HIGH:
@@ -79,11 +80,6 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		CircuitWindow.frame.revalidate();
 		return tmp;
 	}
-	/*public GraphicalObjectPort addGraphicalObjectPort(int posX, int posY, side portSide, GraphicalObject bela) {
-		GraphicalObjectPort tmp = new GraphicalObjectPort(posX, posY, portSide, bela);
-		portList.add(tmp);
-		return tmp;
-	}*/
 	public PortMap getPortMap(){
 		return portMap;
 	}
