@@ -56,9 +56,7 @@ public class PartArray implements Serializable{
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(path +".circ"));
-			for(ObjectContainer i : objectContainerList) {
-				out.writeObject(i);
-			}
+			out.writeObject(Main.partArray);
 			out.close();
 			lastSavePath = path;
 			return null;
@@ -69,14 +67,14 @@ public class PartArray implements Serializable{
 	public String save() {
 		return saveAs(lastSavePath);
 	}
-	public String loadAs(String path) {
+	public static String loadAs(String path) {
 		ObjectInputStream in;
 		try {
 			in = new ObjectInputStream(new FileInputStream(path));
 			Main.partArray = (PartArray) in.readObject();
 			in.close();
-			resetWorspace();
-			return null;
+			Main.partArray.resetWorspace();
+			return "Success";
 		} catch (IOException | ClassNotFoundException e) {
 			return e.getMessage();
 		}

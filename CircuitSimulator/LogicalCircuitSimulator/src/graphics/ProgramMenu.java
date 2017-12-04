@@ -64,7 +64,8 @@ class openActionListener implements ActionListener {
 		JFileChooser fileChooser = new JFileChooser(Paths.get("").toAbsolutePath().toString());
 		if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
-			Main.partArray.loadAs(file.getPath());
+			String returnStr = PartArray.loadAs(file.getPath());
+			System.out.println(returnStr);
 		}
 	}
 }
