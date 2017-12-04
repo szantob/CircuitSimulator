@@ -35,11 +35,18 @@ public class ProgramMenu extends JMenuBar{
 			mnFile.add(mntmOpen);
 		add(mnFile);
 		JMenu mnEdit = new JMenu("Edit");
-			JMenu mnAsd = new JMenu("Asd");
-				JMenuItem mntmAsd = new JMenuItem("asd");
-				mnAsd.add(mntmAsd);
-			mnEdit.add(mnAsd);
+		JMenu mnAsd = new JMenu("Asd");
+			JMenuItem mntmAsd = new JMenuItem("asd");
+			mnAsd.add(mntmAsd);
+		mnEdit.add(mnAsd);
 		add(mnEdit);
+		JMenu mnSimulate = new JMenu("Simulate");
+			JMenuItem mnStart = new JMenuItem("Start");
+			mnStart.addActionListener(new startsimActionListener());
+			mnSimulate.add(mnStart);
+			JMenuItem mnPause = new JMenuItem("Pause");
+			mnSimulate.add(mnPause);
+		add(mnSimulate);
 	}
 }
 class saveAsActionListener implements ActionListener {
@@ -73,6 +80,12 @@ class newActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		PartArray.newPage();	
+	}	
+}
+class startsimActionListener implements ActionListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Main.tokenContainer.startSim();
 	}	
 }
 

@@ -29,18 +29,21 @@ public class ObjectContainer implements Serializable {
 		ObjectContainer temp = new ObjectContainer(GraphicalObject.addGraphicalObject(posX, posY, type, portMap),
 													LogicalObject.addCircuitObject(type,portMap));
 		temp.graphicalComponent.setContainer(temp);
-		/*temp.getGraphicalComponent().connectObject(temp.getLogicalComponent());
-		temp.getLogicalComponent().connectObject(temp.getGraphicalComponent());
-		temp.graphicalPortList = temp.getGraphicalComponent().getGraphicalObjectPortList();*/
+		temp.logicalComponent.setContainer(temp);
+		
 		return temp;
 	}
 	public static ObjectContainer newObjectContainer(GraphicalObjectPort portA, GraphicalObjectPort portB) {
+		PortMap portMapA = portA.getMovableComponent().getPortMap();
+		PortMap portMapB = portB.getMovableComponent().getPortMap();
+		
 		PortMap portMap = new PortMap();
 		MovableWire graphicalWire = MovableWire.attachMovableWireToPorts(portA, portB, portMap);
-		SimpleWire logicalWire = new SimpleWire(portMap);
-		ObjectContainer temp = new ObjectContainer(graphicalWire,logicalWire);
-		//TODO
-		return temp;
+		SimpleWire logicalWire = SimpleWire.attachSimpleWireToPorts(portMapA.GtoL(portA), portMapB.GtoL(portB), portMap);
+		ObjectContainer container = new ObjectContainer(graphicalWire,logicalWire);
+		graphicalWire.setContainer(container);
+		logicalWire.setContainer(container);
+		return container;
 	}
 
 
@@ -51,7 +54,11 @@ public class ObjectContainer implements Serializable {
 		return logicalComponent;
 	}
 
-
-
-
+	public void updateGraphicalComponent(CircuitStateEnum logicalLevel) {
+		graphicalComponent.setColorByState(logicalLevel);
+	}
+	public void updateLogicalComponent(String logicalLevel) {
+		logicalComponent.setState(logicalLevel);
+		logicalComponent.tokenUpdate();	//TODO
+	}
 }

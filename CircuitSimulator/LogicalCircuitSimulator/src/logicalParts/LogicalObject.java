@@ -3,17 +3,19 @@ package logicalParts;
 import java.io.Serializable;
 import java.util.ArrayList;
 import controller.CircuitStateEnum;
+import controller.ObjectContainer;
 import controller.PortMap;
 import controller.TokenContainer;
 import graphicalParts.GraphicalObject;
 import graphicalParts.GraphicalObjectPort;
+import main.Main;
 import parts.AndGate;
 import parts.OrGate;
 import parts.XorGate;
 
 public abstract class LogicalObject implements Serializable {
 	private static final long serialVersionUID = 1L;
-	//protected ArrayList<LogicalObjectPort> portList;
+	protected ObjectContainer container;
 	public PortMap portMap;
 	int I,O,IO;
 	protected CircuitStateEnum state;
@@ -22,43 +24,40 @@ public abstract class LogicalObject implements Serializable {
 	private GraphicalObject connectedObject;
 	
 	public LogicalObject(int inputPortNumber, int outputPortNumber, int inoutPortNumber, PortMap portMap) {
+		this.portMap = portMap;
 		I=inputPortNumber;
 		O=outputPortNumber;
 		IO=inoutPortNumber;
 		state = CircuitStateEnum.UNSTABLE;
 		sleepTime = 100;
-		//portList = new ArrayList<LogicalObjectPort>();
 		for(int i=0; i<inputPortNumber;i++) {
 			portMap.addLogicalObjectPort(CircuitObjectPortDirection.INPUT,this);
-			//portList.add(new LogicalObjectPort(CircuitObjectPortDirection.INPUT,this));
 		}
 		for(int i=0; i<outputPortNumber;i++) {
-			//portList.add(new LogicalObjectPort(CircuitObjectPortDirection.OUTPUT,this));
 			portMap.addLogicalObjectPort(CircuitObjectPortDirection.OUTPUT,this);
 		}
 		for(int i=0; i<inoutPortNumber;i++) {
-			//portList.add(new LogicalObjectPort(CircuitObjectPortDirection.INOUT,this));
 			portMap.addLogicalObjectPort(CircuitObjectPortDirection.INOUT,this);
 		}
 	}
-	public void addTokensToOutputs(TokenContainer container, int timeToLive) {
+	public void addTokensToOutputs(int timeToLive) {
 		for(int i=I;i<i+O;i++) {
-			//container.addToken(portList.get(i).GetConnectedObject(), timeToLive);
-			container.addToken(portMap.getL(i).GetConnectedObject(), timeToLive);
+			Main.tokenContainer.addToken(portMap.getL(i).GetConnectedObject(), timeToLive);
 		}
 	}
 	public static boolean Connect(LogicalObjectPort portA, LogicalObjectPort portB) {
 		if(portA.Connect(portB)&&portB.Connect(portA)) throw new RuntimeException();
 		return false;
 	}
-	public synchronized boolean Update() {
-		return false;
+	public synchronized boolean Update() {return false;}
+	public void tokenUpdate() {}
+	protected void graphicalUpdate() {
+		container.updateGraphicalComponent(state);
 	}
 	public CircuitStateEnum getState() {
 		return state;
 	}
 	public LogicalObjectPort getPort(int port) {
-		//return portList.get(port);
 		return portMap.getL(port);
 	}
 	/**
@@ -98,7 +97,11 @@ public abstract class LogicalObject implements Serializable {
 		}
 	}
 	public ArrayList<GraphicalObjectPort> getObjectPortList() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	public void setContainer(ObjectContainer temp) {
+		container = temp;
+	}
+	public void setState(String stateChar) {
 	}
 }

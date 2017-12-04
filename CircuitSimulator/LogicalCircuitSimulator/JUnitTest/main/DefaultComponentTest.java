@@ -3,16 +3,16 @@ package main;
 import org.junit.Assert;
 import org.junit.Test;
 
+import controller.PortMap;
 import logicalParts.LogicalObject;
 import logicalParts.SimpleInput;
 import logicalParts.SimpleOutput;
 import logicalParts.SimpleWire;
-import parts.*;
 
 public class DefaultComponentTest {
 	@Test
 	public void SimpleInputBehaviorTest(){
-		SimpleInput in = new SimpleInput();
+		SimpleInput in = new SimpleInput(new PortMap());
 		Assert.assertEquals("U",in.toString());
 		
 		in.setState("H");
@@ -26,7 +26,7 @@ public class DefaultComponentTest {
 	}
 	@Test
 	public void SimpleInputUpdateReturnTest(){
-		SimpleInput in = new SimpleInput();
+		SimpleInput in = new SimpleInput(new PortMap());
 		boolean temp;
 		
 		in.setState("H");
@@ -51,8 +51,8 @@ public class DefaultComponentTest {
 	}
 	@Test
 	public void SimpleOutputBehaviorTest(){
-		SimpleInput in = new SimpleInput();
-		SimpleOutput out = new SimpleOutput();
+		SimpleInput in = new SimpleInput(new PortMap());
+		SimpleOutput out = new SimpleOutput(new PortMap());
 		Assert.assertEquals("U",out.toString());
 		LogicalObject.Connect(in.getPort(), out.getPort());
 		Assert.assertEquals("U",out.toString());
@@ -77,8 +77,8 @@ public class DefaultComponentTest {
 	}
 	@Test
 	public void SimpleOutputUpdateReturnTest(){
-		SimpleInput in = new SimpleInput();
-		SimpleOutput out = new SimpleOutput();
+		SimpleInput in = new SimpleInput(new PortMap());
+		SimpleOutput out = new SimpleOutput(new PortMap());
 		LogicalObject.Connect(in.getPort(), out.getPort());
 
 		in.setState("H");
@@ -99,8 +99,8 @@ public class DefaultComponentTest {
 	}
 	@Test
 	public void SimpleWireBehaviorTest() {
-		SimpleInput in = new SimpleInput();
-		SimpleWire wire = new SimpleWire();
+		SimpleInput in = new SimpleInput(new PortMap());
+		SimpleWire wire = new SimpleWire(new PortMap());
 		Assert.assertEquals("U",wire.toString());
 		
 		LogicalObject.Connect(in.getPort(), wire.getPort(0));
@@ -117,8 +117,8 @@ public class DefaultComponentTest {
 	}
 	@Test
 	public void SimpleWireUpdateReturnTest() {
-		SimpleInput in = new SimpleInput();
-		SimpleWire wire = new SimpleWire();
+		SimpleInput in = new SimpleInput(new PortMap());
+		SimpleWire wire = new SimpleWire(new PortMap());
 		boolean temp;
 		LogicalObject.Connect(in.getPort(), wire.getPort(0));
 		
@@ -141,11 +141,11 @@ public class DefaultComponentTest {
 	}
 	@Test
 	public void SimpleWireOutputTest(){
-		SimpleInput in = new SimpleInput();
-		SimpleWire wire = new SimpleWire();
-		SimpleOutput out = new SimpleOutput();
+		SimpleInput in = new SimpleInput(new PortMap());
+		SimpleWire wire = new SimpleWire(new PortMap());
+		SimpleOutput out = new SimpleOutput(new PortMap());
 		LogicalObject.Connect(in.getPort(), wire.getPort(0));
-		LogicalObject.Connect(wire.getPort(0), out.getPort(0));
+		LogicalObject.Connect(wire.getPort(1), out.getPort());
 
 		in.setState("H");
 		in.Update();

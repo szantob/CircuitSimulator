@@ -39,4 +39,7 @@ public class PortMap {
 	public LogicalObjectPort getL(int i) {
 		return logicalPortList.get(i);
 	}
+	public LogicalObjectPort GtoL(GraphicalObjectPort graphicalPort) {
+		return logicalPortList.get(graphicalPortList.indexOf(graphicalPort));
+	}
 }

@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import controller.PortMap;
 import logicalParts.LogicalObject;
 import logicalParts.SimpleInput;
 import parts.AndGate;
@@ -15,9 +16,9 @@ public class AndGateTest {
 	boolean temp;
 	@Before
 	public void initializeInputs() {
-		and = new AndGate();
-		inA = new SimpleInput();
-		inB = new SimpleInput();
+		and = new AndGate(new PortMap());
+		inA = new SimpleInput(new PortMap());
+		inB = new SimpleInput(new PortMap());
 		inA.setState("L");
 		inB.setState("L");
 		inA.Update();

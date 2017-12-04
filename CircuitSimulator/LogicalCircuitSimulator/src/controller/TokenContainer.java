@@ -2,13 +2,11 @@ package controller;
 
 import java.util.ArrayList;
 
-import graphicalParts.GraphicalObject;
 import logicalParts.LogicalObject;
 
 class Token extends Thread {
 	TokenContainer container;
 	LogicalObject imSittingHere;
-	GraphicalObject youCanSeeMeHere;
 	
 	private int tokenTTL;
 	private int speedReducer;
@@ -23,8 +21,7 @@ class Token extends Thread {
 			sleep(imSittingHere.getSleepTime()*speedReducer);
 		} catch (InterruptedException e) {}
 		if(imSittingHere.Update()==true) {
-			youCanSeeMeHere.setColorByState(imSittingHere.getState());
-			imSittingHere.addTokensToOutputs(container, tokenTTL-1);
+			imSittingHere.addTokensToOutputs(tokenTTL-1);
 			container.remove(this);
 			return;
 		}else {
@@ -47,6 +44,11 @@ public class TokenContainer extends ArrayList<Token>{
 	public void reduceSimSpeed(int factor) {
 		for(Token token : this) {
 			token.setSpeedReducer(factor);
+		}
+	}
+	public void startSim() {
+		for(Token i : this) {
+			i.start();
 		}
 	}
 }

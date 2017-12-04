@@ -87,6 +87,9 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 	public PortMap getPortMap(){
 		return portMap;
 	}
+	public ObjectContainer getHomeContainer() {
+		return container;
+	}
 }
 
 class MouseDragListener extends MouseAdapter{
@@ -105,11 +108,3 @@ class MouseDragListener extends MouseAdapter{
     	homeObject.moveToPos(posX,posY);    	
 	}
 }
-/*
-class MouseMoveAdapter extends MouseAdapter{
-	GraphicalObject homeObject;
-	MouseMoveAdapter(GraphicalObject homeObject){
-		this.homeObject=homeObject;
-	}
-
-}*/

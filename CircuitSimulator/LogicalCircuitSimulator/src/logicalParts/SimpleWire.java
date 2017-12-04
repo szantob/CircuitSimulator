@@ -14,6 +14,7 @@ public class SimpleWire extends LogicalObject {
 		}else {
 			state = portMap.getL(0).getState();
 			portMap.getL(1).setState(this, getState());
+			graphicalUpdate();
 			return true;
 		}
 	}
