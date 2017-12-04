@@ -4,23 +4,22 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import javax.swing.JPanel;
 
 import controller.CircuitStateEnum;
 import controller.ObjectContainer;
+import controller.PortMap;
 import graphics.CircuitWindow;
 import graphics.GraficSettings;
 import graphics.StateChangingColor;
 
 public abstract class GraphicalObject extends JPanel implements StateChangingColor, Serializable {
 	private static final long serialVersionUID = 1L;
-	
 	private int width, height;
+	protected PortMap portMap;
 	
-	private ArrayList<GraphicalObjectPort> portList;
 	private ObjectContainer container;
+	
 	public void setContainer(ObjectContainer container) {
 		this.container=container;
 	}
@@ -28,13 +27,11 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		return container;
 	}
 
-	GraphicalObject(){
-    	initialize();
-	}
 	GraphicalObject(int posX, int posY, int width, int height){
     	this.width=width;
     	this.height=height;
     	setBounds(posX-width/2, posY-height/2, width, height);
+		portMap = new PortMap();
     	initialize();
 	}
 	protected void moveToPos(int newPosX, int newPosY) {
@@ -82,18 +79,14 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
 		CircuitWindow.frame.revalidate();
 		return tmp;
 	}
-	public GraphicalObjectPort addGraphicalObjectPort(int posX, int posY, side portSide, GraphicalObject bela) {
+	/*public GraphicalObjectPort addGraphicalObjectPort(int posX, int posY, side portSide, GraphicalObject bela) {
 		GraphicalObjectPort tmp = new GraphicalObjectPort(posX, posY, portSide, bela);
 		portList.add(tmp);
 		return tmp;
+	}*/
+	public PortMap getPortMap(){
+		return portMap;
 	}
-	public ArrayList<GraphicalObjectPort> getObjectPortList(){
-		return portList;
-	}
-	public GraphicalObjectPort getPort(int indexOf) {
-		return portList.get(indexOf);
-	}
-	
 }
 
 class MouseDragListener extends MouseAdapter{

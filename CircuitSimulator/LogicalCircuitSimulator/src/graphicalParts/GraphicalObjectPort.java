@@ -8,11 +8,6 @@ import javax.swing.JRadioButton;
 
 import controller.MouseStateMachine;
 
-enum side{
-	LEFT,
-	RIGHT;
-}
-
 public class GraphicalObjectPort extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GraphicalObject bela;

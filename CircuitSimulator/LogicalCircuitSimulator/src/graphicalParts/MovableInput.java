@@ -7,7 +7,7 @@ import logicalParts.SimpleInput;
 
 public class MovableInput extends GraphicalObject {
 	private static final long serialVersionUID = 1L;
-	GraphicalObjectPort out;
+	//GraphicalObjectPort out;
 	
 	private SimpleInput simObject;
 	public MovableInput(int posX, int posY, String lableStr){
@@ -19,12 +19,14 @@ public class MovableInput extends GraphicalObject {
 		add(label);
 	}
 	void initialize() {
-		out=new GraphicalObjectPort(27, 8, side.RIGHT,this);
-		add(out);
+		/*out=new GraphicalObjectPort(27, 8, side.RIGHT,this);
+		add(out);*/
+		add(portMap.addGraphicalObjectPort(27, 8, side.RIGHT,this));
 	}
 	
 	public void updateConnections() {
-		if(out.getAttachedWire()!=null)out.getAttachedWire().refresh(out);
+		//if(out.getAttachedWire()!=null)out.getAttachedWire().refresh(out);
+		portMap.refreshAttachedWires();
 	}
 	public SimpleInput getSimObject() {
 		return simObject;

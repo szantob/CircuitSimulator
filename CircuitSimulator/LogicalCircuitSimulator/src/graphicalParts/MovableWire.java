@@ -30,11 +30,11 @@ public class MovableWire extends GraphicalObject{
 	}
 	
 	public MovableWire(int aPosX, int aPosY, int bPosX, int bPosY){
+		super(0, 0, GraficSettings.WORKPLACE_WIDTH, GraficSettings.WORKPLACE_HEIGHT);
 		this.aPosX=aPosX;
 		this.aPosY=aPosY;
 		this.bPosX=bPosX;
 		this.bPosY=bPosY;
-		setBounds(0, 0, GraficSettings.WORKPLACE_WIDTH, GraficSettings.WORKPLACE_HEIGHT);
 		setOpaque(false);
 	}
 	public void paintComponent(Graphics g) {

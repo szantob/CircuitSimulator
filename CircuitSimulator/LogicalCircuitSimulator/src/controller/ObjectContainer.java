@@ -8,7 +8,6 @@ import graphicalParts.GraphicalObject;
 import graphicalParts.GraphicalObjectPort;
 import graphicalParts.MovableWire;
 import logicalParts.LogicalObject;
-import logicalParts.LogicalObjectPort;
 import logicalParts.SimpleWire;
 
 /**
@@ -50,12 +49,6 @@ public class ObjectContainer implements Serializable {
 		return logicalComponent;
 	}
 
-	private LogicalObjectPort gpTOlp(GraphicalObjectPort gp) {
-		return logicalComponent.getPort(graphicalComponent.getObjectPortList().indexOf(gp));
-	}
-	private GraphicalObjectPort gpTOlp(LogicalObjectPort lp) {
-		return graphicalComponent.getPort(logicalComponent.getObjectPortList().indexOf(lp));
-	}
 
 
 

@@ -6,7 +6,7 @@ import parts.LogicalGate;
 
 public class MovableGate extends GraphicalObject {
 	private static final long serialVersionUID = 1L;
-	GraphicalObjectPort inA, inB, out;
+	//GraphicalObjectPort inA, inB, out;
 	
 	LogicalGate simObject;
 	public MovableGate(int posX, int posY, String lableStr){
@@ -17,18 +17,19 @@ public class MovableGate extends GraphicalObject {
 		add(label);
 	}
 	void initialize() {
-		inA=new GraphicalObjectPort(1, 1, side.LEFT,this);
-		add(inA);
-		inB=new GraphicalObjectPort(1, 34, side.LEFT,this);
-		add(inB);
-		out=new GraphicalObjectPort(48, 18, side.RIGHT,this);
-		add(out);
+		//inA=portMap.addGraphicalObjectPort(1, 1, side.LEFT,this);
+		add(portMap.addGraphicalObjectPort(1, 1, side.LEFT,this));
+		//inB=new GraphicalObjectPort(1, 34, side.LEFT,this);
+		add(portMap.addGraphicalObjectPort(1, 34, side.LEFT,this));
+		//out=new GraphicalObjectPort(48, 18, side.RIGHT,this);
+		add(portMap.addGraphicalObjectPort(48, 18, side.RIGHT,this));
 	}
 	
 	public void updateConnections() {
-		if(inA.getAttachedWire()!=null)inA.getAttachedWire().refresh(inA);
+		/*if(inA.getAttachedWire()!=null)inA.getAttachedWire().refresh(inA);
 		if(inB.getAttachedWire()!=null)inB.getAttachedWire().refresh(inB);
-		if(out.getAttachedWire()!=null)out.getAttachedWire().refresh(out);
+		if(out.getAttachedWire()!=null)out.getAttachedWire().refresh(out);*/
+		portMap.refreshAttachedWires();
 	}
 
 }
