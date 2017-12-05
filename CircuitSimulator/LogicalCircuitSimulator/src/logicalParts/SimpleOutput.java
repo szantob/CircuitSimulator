@@ -13,7 +13,9 @@ public class SimpleOutput extends LogicalObject{
 	public synchronized boolean Update(){
 		if(portMap.getL(0).getState()!=state) {
 			state = portMap.getL(0).getState();
-			graphicalUpdate();
+			try {
+				graphicalUpdate();
+			}catch(Exception e) {e.printStackTrace(System.err);}
 			return true;
 		}else {
 			return false;
