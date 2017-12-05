@@ -1,18 +1,31 @@
 package lookupTable;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 
-public class CircuitObjectStateLookupTable implements Map<CircuitStateArray, CircuitStateArray>{
-	ArrayList<CircuitStateArray> keyList = new ArrayList<CircuitStateArray>();
-	ArrayList<CircuitStateArray> valueList = new ArrayList<CircuitStateArray>();
+public class CircuitObjectStateLookupTable{
+	ArrayList<CircuitStateArray> keyList;
+	ArrayList<CircuitStateArray> valueList;
+
+	private int keyLength;
+	private int valueLength;
+	
+	boolean unstableSensitive;
+	
+	public CircuitObjectStateLookupTable(boolean unstableSensitive, int keyLength, int valueLength) {
+		this.keyLength=keyLength;
+		this.valueLength=valueLength;
+		this.unstableSensitive=unstableSensitive;
+		keyList = new ArrayList<CircuitStateArray>();
+		valueList = new ArrayList<CircuitStateArray>();
+	}
+	public CircuitObjectStateLookupTable(int keyLength, int valueLength) {
+		this(true,keyLength,valueLength);
+	}
 	
 	public String toString() {
 		String ret = new String();
-		ArrayList<CircuitStateArray> keys = new ArrayList<CircuitStateArray>(keySet());
+		ArrayList<CircuitStateArray> keys = new ArrayList<CircuitStateArray>();
 		for (int i = 0; i < keys.size(); i++) {
 			CircuitStateArray key = (CircuitStateArray) keys.get(i);
 		    ret+=key.toString();
@@ -24,7 +37,7 @@ public class CircuitObjectStateLookupTable implements Map<CircuitStateArray, Cir
 	}
 	public String prettyPrint() {
 		String ret = new String();
-		ArrayList<CircuitStateArray> keys = new ArrayList<CircuitStateArray>(keySet());
+		ArrayList<CircuitStateArray> keys = new ArrayList<CircuitStateArray>();
 		int rowLength =keys.get(0).size()+get(keys.get(0)).size()+1;
 		ret+="+";
 		for (int i = 0; i < rowLength; i++) ret+="-";
@@ -45,70 +58,55 @@ public class CircuitObjectStateLookupTable implements Map<CircuitStateArray, Cir
 	    ret+=System.lineSeparator();
 		return ret;
 	}
-	@Override
 	public int size() {
 		return keyList.size();
 	}
-	@Override
 	public boolean isEmpty() {
 		return keyList.isEmpty();
 	}
-	@Override
 	public boolean containsKey(Object key) {
+		CircuitStateArray arr = (CircuitStateArray)key;
+		if(arr.size()!=keyLength) return false;
 		for(int i=0;i<keyList.size();i++) {
 			if(keyList.equals(key)) return true;
 		}
 		return false;
 	}
-	@Override
 	public boolean containsValue(Object value) {
+		CircuitStateArray arr = (CircuitStateArray)value;
+		if(arr.size()!=keyLength) return false;
 		for(int i=0;i<valueList.size();i++) {
 			if(valueList.equals(value)) return true;
 		}
 		return false;
 	}
-	@Override
 	public CircuitStateArray get(Object key) {
+		CircuitStateArray arr = (CircuitStateArray)key;
+		if(arr.size()!=keyLength) return null;
+		if(arr.hasUnstable()&&this.unstableSensitive) return valueList.get(0);
 		for(int i=0;i<keyList.size();i++) {
 			if(keyList.get(i).equals(key)) return valueList.get(i);
 		}
 		return null;
 	}
-	@Override
 	public CircuitStateArray put(CircuitStateArray key, CircuitStateArray value) {
+		CircuitStateArray arr = (CircuitStateArray)key;
+		if(arr.size()!=keyLength) return null;
+		arr = (CircuitStateArray)value;
+		if(arr.size()!=keyLength) return null;
 		keyList.add(key);
 		valueList.add(value);
 		return null;
 	}
-	@Override
 	public CircuitStateArray remove(Object key) {
+		CircuitStateArray arr = (CircuitStateArray)key;
+		if(arr.size()!=keyLength) return null;
 		valueList.remove(keyList.indexOf(key));
 		keyList.remove(key);
 		return null;
 	}
-	@Override
-	public void putAll(Map<? extends CircuitStateArray, ? extends CircuitStateArray> m) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void clear() {
 		keyList.clear();
 		valueList.clear();
-	}
-	@Override
-	public Set<CircuitStateArray> keySet() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Collection<CircuitStateArray> values() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Set<Entry<CircuitStateArray, CircuitStateArray>> entrySet() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

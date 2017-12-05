@@ -13,16 +13,13 @@ public class LookupTableTest {
 	
 	@Test
 	public void SearchTest() {
-		lookupTable = new CircuitObjectStateLookupTable();
+		lookupTable = new CircuitObjectStateLookupTable(2,1);
 		CircuitStateArray value;
 		CircuitStateArray expected;
-		@SuppressWarnings("unused")
-		int i=0; i++;
-		lookupTable.put(new CircuitStateArray("UX"), new CircuitStateArray("U"));
-		lookupTable.put(new CircuitStateArray("XU"), new CircuitStateArray("U"));
 		lookupTable.put(new CircuitStateArray("UU"), new CircuitStateArray("U"));
-		lookupTable.put(new CircuitStateArray("LX"), new CircuitStateArray("L"));
-		lookupTable.put(new CircuitStateArray("XL"), new CircuitStateArray("L"));
+		lookupTable.put(new CircuitStateArray("LL"), new CircuitStateArray("L"));
+		lookupTable.put(new CircuitStateArray("LH"), new CircuitStateArray("L"));
+		lookupTable.put(new CircuitStateArray("HL"), new CircuitStateArray("L"));
 		lookupTable.put(new CircuitStateArray("HH"), new CircuitStateArray("H"));
 		
 		value = new CircuitStateArray("H");
