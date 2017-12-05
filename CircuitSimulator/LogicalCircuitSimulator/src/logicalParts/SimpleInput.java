@@ -14,8 +14,10 @@ public class SimpleInput extends LogicalObject{
 		if(portMap.getL(0).getState()!=state) {
 			portMap.getL(0).setState(this, state);
 			try {
-			graphicalUpdate();
-			}catch(Exception e) {} //TODO
+				graphicalUpdate();
+			}catch(Exception e) {
+				e.printStackTrace(System.err);
+			}
 			return true;
 		}else {
 			return false;
