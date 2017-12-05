@@ -34,16 +34,16 @@ public abstract class GraphicalObject extends JPanel implements StateChangingCol
     	this.height=height;
     	this.portMap=portMap;
     	setBounds(posX-width/2, posY-height/2, width, height);
+		setBackground(Color.YELLOW);
+		setLayout(null);
     	initialize();
+	}
+	public void initialize() {
+		addMouseMotionListener(new MouseDragListener(this));
 	}
 	protected void moveToPos(int newPosX, int newPosY) {
     	setLocation(newPosX-width/2,newPosY-height/2);
     	updateConnections();
-	}
-	private void initialize() {
-		setBackground(Color.YELLOW);
-		addMouseMotionListener(new MouseDragListener(this));
-		setLayout(null);
 	}
 	public void updateConnections() { //TODO
 	}

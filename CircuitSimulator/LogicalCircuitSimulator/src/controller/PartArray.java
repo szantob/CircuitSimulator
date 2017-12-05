@@ -45,6 +45,7 @@ public class PartArray implements Serializable{
 	boolean resetWorspace(){
 		CircuitWindow.workplace.removeAll();
 		for(ObjectContainer i : objectContainerList) {
+			i.getGraphicalComponent().initialize();
 			CircuitWindow.workplace.add(i.getGraphicalComponent());
 		}
 		CircuitWindow.frame.repaint();

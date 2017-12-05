@@ -2,6 +2,7 @@ package graphicalParts;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -55,7 +56,8 @@ public class GraphicalObjectPort extends JPanel {
 	}
 }
 
-class myActionListener implements ActionListener{
+class myActionListener implements ActionListener, Serializable{
+	private static final long serialVersionUID = 1L;
 	GraphicalObjectPort port;
 	myActionListener(GraphicalObjectPort port){
 		this.port=port;
