@@ -21,11 +21,7 @@ public class OrGate extends LogicalGate {
 			}else {
 				this.state = CircuitStateEnum.UNSTABLE;
 				out.setState(this, CircuitStateEnum.UNSTABLE);
-				try {
-					graphicalUpdate();
-				}catch(Exception e) {
-					e.printStackTrace(System.err);
-				}
+				graphicalUpdate();
 				return true;
 			}
 		}else if(inA.getState()==CircuitStateEnum.HIGH||inB.getState()==CircuitStateEnum.HIGH) {
@@ -34,11 +30,7 @@ public class OrGate extends LogicalGate {
 			}else {
 				this.state = CircuitStateEnum.HIGH;
 				out.setState(this, CircuitStateEnum.HIGH);
-				try {
-					graphicalUpdate();
-				}catch(Exception e) {
-					e.printStackTrace(System.err);
-				}
+				graphicalUpdate();
 				return true;
 			}
 		}else {
@@ -47,11 +39,7 @@ public class OrGate extends LogicalGate {
 			}else {
 				this.state = CircuitStateEnum.LOW;
 				out.setState(this, CircuitStateEnum.LOW);
-				try {
-					graphicalUpdate();
-				}catch(Exception e) {
-					e.printStackTrace(System.err);
-				}
+				graphicalUpdate();
 				return true;
 			}
 		}

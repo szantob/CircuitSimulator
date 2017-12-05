@@ -16,11 +16,7 @@ public class NotGate extends LogicalObject {
 				return false;
 			}else {
 				state=CircuitStateEnum.UNSTABLE;
-				try {
-					graphicalUpdate();
-				}catch(Exception e) {
-					e.printStackTrace(System.err);
-				}
+				graphicalUpdate();
 				return true;
 			}
 		case HIGH:
@@ -28,11 +24,7 @@ public class NotGate extends LogicalObject {
 				return false;
 			}else {
 				state=CircuitStateEnum.LOW;
-				try {
-					graphicalUpdate();
-				}catch(Exception e) {
-					e.printStackTrace(System.err);
-				}
+				graphicalUpdate();
 				return true;
 			}
 		case LOW:
@@ -40,11 +32,7 @@ public class NotGate extends LogicalObject {
 				return false;
 			}else {
 				state=CircuitStateEnum.HIGH;
-				try {
-					graphicalUpdate();
-				}catch(Exception e) {
-					e.printStackTrace(System.err);
-				}
+				graphicalUpdate();
 				return true;
 			}
 		default:
