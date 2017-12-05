@@ -45,6 +45,7 @@ public class ProgramMenu extends JMenuBar{
 			mnStart.addActionListener(new startsimActionListener());
 			mnSimulate.add(mnStart);
 			JMenuItem mnPause = new JMenuItem("Pause");
+			mnPause.addActionListener(new pausesimActionListener());
 			mnSimulate.add(mnPause);
 		add(mnSimulate);
 	}
@@ -86,6 +87,12 @@ class startsimActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Main.tokenContainer.startSim();
+	}	
+}
+class pausesimActionListener implements ActionListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Main.tokenContainer.pauseSim();
 	}	
 }
 

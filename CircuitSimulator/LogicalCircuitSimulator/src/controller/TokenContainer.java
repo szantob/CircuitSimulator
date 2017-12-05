@@ -9,17 +9,27 @@ class Token extends Thread {
 	LogicalObject imSittingHere;
 	
 	private int tokenTTL;
-	private int speedReducer;
+	int speedReducer=1;
+	boolean isPaused=false;
 	
-	public Token(LogicalObject nextObject, int timeToLive) {
-		if(timeToLive==0);			//////////////////  Cyclic circuit!!!!!!
+	public Token(LogicalObject nextObject, int timeToLive, boolean isPaused, int speedReducer) {
+		if(timeToLive==0);			//TODO  Cyclic circuit!!!!!!
+		this.isPaused=isPaused;
+		this.speedReducer=speedReducer;
 		tokenTTL=timeToLive;
 		imSittingHere=nextObject;
 	}
 	public void run() {
 		try {
-			sleep(imSittingHere.getSleepTime()*speedReducer);
-		} catch (InterruptedException e) {}
+			Thread.sleep(imSittingHere.getSleepTime()*speedReducer);
+		} catch (InterruptedException e) {
+			e.toString();
+		}
+		while(isPaused) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {			}
+		}
 		if(imSittingHere.Update()==true) {
 			imSittingHere.addTokensToOutputs(tokenTTL-1);
 			container.remove(this);
@@ -28,30 +38,39 @@ class Token extends Thread {
 			return;
 		}
 	}
-	public void setSpeedReducer(int factor){
-		speedReducer = factor;
-	}
 }
 
 public class TokenContainer extends ArrayList<Token>{
 	private static final long serialVersionUID = 1L;
+
+	int speedReducer=1;
+	boolean isPaused=false;
+	
 	public TokenContainer(){
 		super();
 	}
 	public void addToken(LogicalObject nextObject, int timeToLive) {
-		Token token = new Token(nextObject, timeToLive);
+		Token token = new Token(nextObject, timeToLive, isPaused, speedReducer);
 		token.container=this;
 		add(token);
 		token.start();
 	}
 	public void reduceSimSpeed(int factor) {
-		for(Token token : this) {
-			token.setSpeedReducer(factor);
+		speedReducer=factor;
+		for(Token i : this) {
+			i.speedReducer=factor;
 		}
 	}
 	public void startSim() {
+		isPaused=false;
 		for(Token i : this) {
-			i.start();
+			i.isPaused=false;
+		}
+	}
+	public void pauseSim() {
+		isPaused=true;
+		for(Token i : this) {
+			i.isPaused=true;
 		}
 	}
 }

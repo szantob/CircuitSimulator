@@ -15,12 +15,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.MouseInputListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import controller.MouseStateMachine;
+import main.Main;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.JSlider;
+import java.awt.Insets;
 
 
 public class CircuitWindow {
@@ -33,7 +41,7 @@ public class CircuitWindow {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 450, 472);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new ProgramMenu();
@@ -54,9 +62,37 @@ public class CircuitWindow {
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.WEST);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{161, 0};
+		gbl_panel_1.rowHeights = new int[]{332, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
 		
 		
-		panel_1.add(new CircuitObjectTree());	
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 0, 5, 0);
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		graphics.CircuitObjectTree circuitObjectTree = new CircuitObjectTree();
+		panel_1.add(circuitObjectTree, gbc);	
+		
+		JSlider slider = new JSlider();
+		slider.setBounds(0, 0, 55, 20);
+		GridBagConstraints gbc_slider = new GridBagConstraints();
+		gbc_slider.gridx = 0;
+		gbc_slider.gridy = 1;
+		panel_1.add(slider, gbc_slider);
+	}
+}
+
+class SimSpeedListener implements ChangeListener {
+	@Override
+	public void stateChanged(ChangeEvent e) {
+        JSlider source = (JSlider) e.getSource();
+        int value = (int)source.getValue();
+        Main.tokenContainer.reduceSimSpeed(value*10000);
 	}
 }
 
